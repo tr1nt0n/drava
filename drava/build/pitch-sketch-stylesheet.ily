@@ -66,11 +66,9 @@ afterGraceFraction = #(cons 15 16)
         \override Accidental.whiteout-style = #'outline
         \override Accidental.whiteout = 1
 
-        \override BarLine.transparent = ##t
         \override BarLine.hair-thickness = 0.5
         \override BarLine.X-extent = #'(0 . 0)
         \override BarLine.thick-thickness = #10
-        \override BarLine.bar-extent = #'(-3 . 3)
 
         autoBeaming = ##f
         \override Beam.transparent = ##t
@@ -82,6 +80,8 @@ afterGraceFraction = #(cons 15 16)
         \override Dots.transparent = ##t
 
         \override Flag.transparent = ##t
+
+        \override NoteHead.duration-log = 2
 
         \override Staff.thickness = #0.5
 
@@ -95,7 +95,7 @@ afterGraceFraction = #(cons 15 16)
         \override Tie.height-limit = 6
         \override Tie.thickness = 1.5
 
-        \override TupletBracket.tranparent = ##t
+        \override TupletBracket.transparent = ##t
         \override TupletNumber.transparent = ##t
     }
 
@@ -115,11 +115,13 @@ afterGraceFraction = #(cons 15 16)
 }
 %
 \paper {
-    #(define fonts
-    (set-global-fonts
-    #:music "/Users/trintonprater/haydn"
-    #:brace "/Users/trintonprater/haydn"
-   ))
+    % #(ly:font-config-add-font "/Users/trintonprater/haydn/otf/haydn-11.otf")
+    % #(ly:font-config-add-font "/Users/trintonprater/haydn/svg/haydn-11.svg")
+    % #(define fonts
+    %     (set-global-fonts
+	%         #:music "haydn"
+	%         #:brace "haydn"
+	% ))
     % max-systems-per-page = 3
     system-separator-markup = \markup \fontsize #12 { \tremolo-moderato }
     system-system-spacing = #'((basic-distance . 22) (minimum-distance . 22) (padding . 16))

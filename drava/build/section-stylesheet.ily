@@ -76,7 +76,6 @@ afterGraceFraction = #(cons 15 16)
         \override BarLine.hair-thickness = 0.5
         % \override BarLine.X-extent = #'(0 . 0)
         \override BarLine.thick-thickness = #10
-        \override BarLine.bar-extent = #'(-3 . 3)
 
         autoBeaming = ##f
         \override Beam.breakable = ##t
