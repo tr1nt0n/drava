@@ -322,16 +322,41 @@ def partition_moments():
         flat_pitch_class_list, [5, 5, 3, 10], cyclic=True, overhang=True
     )
 
-    moments = []
+    segments = []
 
     for partition in partitions:
-        moments.append(abjad.PitchClassSegment(partition))
+        segments.append(abjad.PitchClassSegment(partition))
 
-    moment_counter = 1
+    moments = []
+
+    for segment in segments:
+        if len(segment) == 3:
+            moments.append(segment)
+
+    for segment in segments:
+        if len(segment) == 5:
+            moments.append(segment)
+
+    for segment in segments:
+        if len(segment) == 10:
+            moments.append(segment)
+
+    a_counter = 1
+    b_counter = 1
+    c_counter = 1
     moment_labels = []
 
     for moment in moments:
-        moment_labels.append(rf"partitioned moment {moment_counter}")
-        moment_counter += 1
+        if len(moment) == 3:
+            moment_labels.append(rf"a moment {a_counter}")
+            a_counter +=1
+
+        if len(moment) == 5:
+            moment_labels.append(rf"b moment {b_counter}")
+            b_counter +=1
+
+        if len(moment) == 10:
+            moment_labels.append(rf"c moment {c_counter}")
+            c_counter +=1
 
     return moments, moment_labels
