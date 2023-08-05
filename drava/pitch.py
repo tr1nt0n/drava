@@ -349,14 +349,14 @@ def partition_moments():
     for moment in moments:
         if len(moment) == 3:
             moment_labels.append(rf"a moment {a_counter}")
-            a_counter +=1
+            a_counter += 1
 
         if len(moment) == 5:
             moment_labels.append(rf"b moment {b_counter}")
-            b_counter +=1
+            b_counter += 1
 
         if len(moment) == 10:
             moment_labels.append(rf"c moment {c_counter}")
-            c_counter +=1
+            c_counter += 1
 
     return moments, moment_labels
