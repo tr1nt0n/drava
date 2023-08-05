@@ -38,11 +38,11 @@ def transform_i():
             new_labels.append(f"transform i trichord {tri_counter}")
             tri_counter += 1
 
-        elif len(segment) == 4:
+        if len(segment) == 4:
             new_labels.append(f"transform i tetrachord {tetra_counter}")
             tetra_counter += 1
 
-        else:
+        if len(segment) == 5:
             new_labels.append(f"transform i pentachord {penta_counter}")
             penta_counter += 1
 
@@ -54,26 +54,18 @@ def transform_ii():
 
     new_segments = []
 
-    for i, segment in enumerate(segments):
-        interval = segment[0].number - segment[-1].number
-        if interval > 0:
-            interval = interval
-        else:
-            interval = interval * -1
-
+    for segment in segments:
         if (
-            interval == 1
-            or interval == 2
-            or interval == 4
-            or interval == 5
-            or interval == 6
+            segment[0].number == 0
+            or segment[0].number == 2
+            or segment[0].number == 4
+            or segment[0].number == 5
+            or segment[0].number == 6
+            or segment[0].number == 8
         ):
             pass
         else:
-            if i % 2 == 0:
-                new_segments.append(segment.retrograde())
-            else:
-                new_segments.append(segment)
+            new_segments.append(segment)
 
     tri_counter = 1
     tetra_counter = 1
@@ -81,16 +73,16 @@ def transform_ii():
 
     new_labels = []
 
-    for segment in segments:
+    for segment in new_segments:
         if len(segment) == 3:
             new_labels.append(f"transform ii trichord {tri_counter}")
             tri_counter += 1
 
-        elif len(segment) == 4:
+        if len(segment) == 4:
             new_labels.append(f"transform ii tetrachord {tetra_counter}")
             tetra_counter += 1
 
-        else:
+        if len(segment) == 5:
             new_labels.append(f"transform ii pentachord {penta_counter}")
             penta_counter += 1
 
@@ -146,20 +138,20 @@ def transform_iii():
 
     new_labels = []
 
-    for segment in segments:
+    for segment in new_segments:
         if len(segment) == 3:
             new_labels.append(f"transform iii trichord {tri_counter}")
             tri_counter += 1
 
-        elif len(segment) == 4:
+        if len(segment) == 4:
             new_labels.append(f"transform iii tetrachord {tetra_counter}")
             tetra_counter += 1
 
-        elif len(segment) == 5:
+        if len(segment) == 5:
             new_labels.append(f"transform iii pentachord {penta_counter}")
             penta_counter += 1
 
-        else:
+        if len(segment) > 5:
             new_labels.append(f"transform iii extension {extend_counter}")
             extend_counter += 1
 
@@ -201,16 +193,16 @@ def transform_iv():
 
     new_labels = []
 
-    for segment in segments:
+    for segment in new_segments:
         if len(segment) == 3:
             new_labels.append(f"transform iv trichord {tri_counter}")
             tri_counter += 1
 
-        elif len(segment) == 4:
+        if len(segment) == 4:
             new_labels.append(f"transform iv tetrachord {tetra_counter}")
             tetra_counter += 1
 
-        else:
+        if len(segment) == 5:
             new_labels.append(f"transform iv pentachord {penta_counter}")
             penta_counter += 1
 
@@ -225,16 +217,21 @@ def transform_v():
     for segment in segments:
         if segments.index(segment) % 3 == 0:
             new_segment = evans.Sequence(segment).alpha(category=1)
+            new_segment = trinton.remove_adjacent(new_segment)
             new_segment = abjad.PitchClassSegment(new_segment)
             new_segments.append(new_segment)
 
-        elif segments.index(segment) % 3 == 1:
+        if segments.index(segment) % 3 == 1:
             new_segment = evans.Sequence(segment).alpha(category=2)
+            new_segment = trinton.remove_adjacent(new_segment)
             new_segment = abjad.PitchClassSegment(new_segment)
             new_segments.append(new_segment)
 
         else:
             new_segment = segment.transpose(n=6)
+            new_segment = [_.number for _ in new_segment]
+            new_segment = trinton.remove_adjacent(new_segment)
+            new_segment = abjad.PitchClassSegment(new_segment)
             new_segments.append(new_segment)
 
     tri_counter = 1
@@ -243,16 +240,16 @@ def transform_v():
 
     new_labels = []
 
-    for segment in segments:
+    for segment in new_segments:
         if len(segment) == 3:
             new_labels.append(f"transform v trichord {tri_counter}")
             tri_counter += 1
 
-        elif len(segment) == 4:
+        if len(segment) == 4:
             new_labels.append(f"transform v tetrachord {tetra_counter}")
             tetra_counter += 1
 
-        else:
+        if len(segment) == 5:
             new_labels.append(f"transform v pentachord {penta_counter}")
             penta_counter += 1
 

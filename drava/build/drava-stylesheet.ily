@@ -1,7 +1,7 @@
 \version "2.23.14"
 \language english
-#(set-default-paper-size "11x17portrait")
-#(set-global-staff-size 12)
+#(set-default-paper-size "11x17landscape")
+#(set-global-staff-size 15)
 #(ly:set-option 'relative-includes #t)
 
 \include "../library.ily"
@@ -60,11 +60,11 @@ afterGraceFraction = #(cons 15 16)
         \numericTimeSignature
         \accepts TimeSignatureContext
         \remove Bar_number_engraver
-        proportionalNotationDuration = #(ly:make-moment 1 20)
+        proportionalNotationDuration = #(ly:make-moment 1 35)
         pedalSustainStyle = #'bracket
 
-        \override StaffGrouper.staff-staff-spacing = #'((basic-distance . 0) (minimum distance . 5) (padding . 8) (stretchability . 28))
-        \override StaffGrouper.staffgroup-staff-spacing = #'((basic-distance . 0) (minimum distance . 5) (padding . 8) (stretchability . 28))
+        \override StaffGrouper.staff-staff-spacing = #'((basic-distance . 0) (minimum distance . 5) (padding . 6) (stretchability . 28))
+        \override StaffGrouper.staffgroup-staff-spacing = #'((basic-distance . 0) (minimum distance . 5) (padding . 6) (stretchability . 28))
 
         \override AccidentalSuggestion.avoid-slur = #'ignore
         \override Accidental.layer = 3
@@ -173,14 +173,14 @@ afterGraceFraction = #(cons 15 16)
 
     \context {
         \Staff
-        % fontSize = #-0.25
+        fontSize = #-3
         % \remove Time_signature_engraver
         \consists Duration_line_engraver
 
         \override TimeSignature.font-size = 6
 		\override TimeSignature.font-name = "Bodoni72 Book"
-        \override TimeSignature.X-extent = #'(0 . -25)
-        \override TimeSignature.X-offset = -2.5
+        % \override TimeSignature.X-extent = #'(0 . -25)
+        % \override TimeSignature.X-offset = -2.5
         \override TimeSignature.whiteout-style = #'outline
         \override TimeSignature.whiteout = 1
         \override TimeSignature.layer = 4
@@ -203,10 +203,10 @@ afterGraceFraction = #(cons 15 16)
 %
 \paper {
     #(define fonts
-    (set-global-fonts
-    #:music "/Users/trintonprater/haydn"
-    #:brace "/Users/trintonprater/haydn"
-   ))
+        (set-global-fonts
+	        #:music "haydn"
+	        #:brace "haydn"
+	))
     % max-systems-per-page = 3
     system-separator-markup = \markup \fontsize #12 { \tremolo-moderato }
     system-system-spacing = #'((basic-distance . 22) (minimum-distance . 22) (padding . 16))

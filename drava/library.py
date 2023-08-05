@@ -2,6 +2,7 @@ import abjad
 import baca
 import evans
 import trinton
+from abjadext import rmakers
 import itertools
 import fractions
 import quicktions
@@ -11,27 +12,40 @@ import quicktions
 # sketch functions
 
 
-def show_pitch_segments(voice, function, measure_counter):
+def add_segments_to_score(voice, function):
     segments, labels = function
-
-    counter = measure_counter
 
     for segment, label in zip(segments, labels):
         tuplet = [1 for _ in range(len(segment))]
         tuplet = tuple(tuplet)
+        nested_music = rmakers.tuplet([(1, 1)], [tuplet])
+        container = abjad.Container(nested_music)
 
         pitch_list = [_.number for _ in segment]
+        handler = evans.PitchHandler(pitch_list)
+        handler(container)
 
-        trinton.make_music(
-            lambda _: trinton.select_target(_, (counter,)),
-            evans.RhythmHandler(evans.tuplet([tuplet])),
-            evans.PitchHandler(pitch_list),
-            trinton.attachment_command(
-                attachments=[abjad.Markup(rf'\markup {{ "{label}" }}')],
-                selector=trinton.select_leaves_by_index([0]),
-                direction=abjad.UP,
-            ),
-            voice=voice,
+        abjad.attach(
+            abjad.Markup(rf'\markup "{label}"'),
+            abjad.select.leaf(container, 0),
+            direction=abjad.UP,
         )
 
-        counter += 1
+        if len(abjad.select.leaves(container)) > 5:
+            abjad.attach(
+                abjad.LilyPondLiteral(
+                    r"\set suggestAccidentals = ##t", "absolute_before"
+                ),
+                abjad.select.leaf(container, 0),
+            )
+
+            abjad.attach(
+                abjad.LilyPondLiteral(
+                    r"\set suggestAccidentals = ##f", "absolute_after"
+                ),
+                abjad.select.leaf(container, -1),
+            )
+
+        selections = abjad.mutate.eject_contents(container)
+
+        voice.extend(selections)

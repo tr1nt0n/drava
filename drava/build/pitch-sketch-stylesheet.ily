@@ -1,7 +1,7 @@
 \version "2.23.14"
 \language english
-#(set-default-paper-size "11x17portrait")
-#(set-global-staff-size 12)
+#(set-default-paper-size "11x17landscape")
+#(set-global-staff-size 15)
 #(ly:set-option 'relative-includes #t)
 
 \include "../library.ily"
@@ -12,7 +12,7 @@
 afterGraceFraction = #(cons 15 16)
 
 \layout {
-    \accidentalStyle neo-modern
+    \accidentalStyle dodecaphonic
     ragged-bottom = ##t
     ragged-last = ##t
     ragged-right = ##t
@@ -71,21 +71,21 @@ afterGraceFraction = #(cons 15 16)
         \override BarLine.thick-thickness = #10
 
         autoBeaming = ##f
-        \override Beam.transparent = ##t
+        \override Beam.stencil = ##f
 
         \override Clef.layer = 2
         \override Clef.whiteout-style = #'outline
         \override Clef.whiteout = 1
 
-        \override Dots.transparent = ##t
+        \override Dots.stencil = ##f
 
-        \override Flag.transparent = ##t
+        \override Flag.stencil = ##f
 
         \override NoteHead.duration-log = 2
 
         \override Staff.thickness = #0.5
 
-        \override Stem.transparent = ##t
+        \override Stem.stencil = ##f
 
         \override TextScript.font-name = "Bodoni72 Book Italic"
         \override TextScript.whiteout = 1
@@ -101,7 +101,7 @@ afterGraceFraction = #(cons 15 16)
 
     \context {
         \Staff
-        % fontSize = #-0.25
+        fontSize = #-3
         \remove Time_signature_engraver
         % \consists Duration_line_engraver
 
@@ -115,15 +115,13 @@ afterGraceFraction = #(cons 15 16)
 }
 %
 \paper {
-    % #(ly:font-config-add-font "/Users/trintonprater/haydn/otf/haydn-11.otf")
-    % #(ly:font-config-add-font "/Users/trintonprater/haydn/svg/haydn-11.svg")
-    % #(define fonts
-    %     (set-global-fonts
-	%         #:music "haydn"
-	%         #:brace "haydn"
-	% ))
+    #(define fonts
+        (set-global-fonts
+	        #:music "haydn"
+	        #:brace "haydn"
+	))
     % max-systems-per-page = 3
-    system-separator-markup = \markup \fontsize #12 { \tremolo-moderato }
+    % system-separator-markup = \markup \fontsize #12 { \tremolo-moderato }
     system-system-spacing = #'((basic-distance . 22) (minimum-distance . 22) (padding . 16))
     indent = 20\mm
     short-indent = 15\mm

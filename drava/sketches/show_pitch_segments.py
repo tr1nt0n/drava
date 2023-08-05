@@ -2,6 +2,7 @@ import abjad
 import baca
 import evans
 import trinton
+from abjadext import rmakers
 import fractions
 import itertools
 import quicktions
@@ -10,29 +11,29 @@ from drava import pitch
 
 # score
 
-score = trinton.make_empty_score(
-    instruments=[
-        abjad.Piano(),
-    ],
-    groups=[
-        1,
-    ],
-    time_signatures=[(4, 4) for _ in range(10000)],
-    filler=abjad.Skip,
+score = trinton.make_score_template(
+    instruments=[abjad.Piano()],
+    groups=[1],
 )
 
-# show pitch segments
+# append transforms
 
+# library.add_segments_to_score(voice=score["piano voice"], function=pitch.start())
+# library.add_segments_to_score(voice=score["piano voice"], function=pitch.transform_i())
+# library.add_segments_to_score(voice=score["piano voice"], function=pitch.transform_ii())
+# library.add_segments_to_score(voice=score["piano voice"], function=pitch.transform_iii())
+# library.add_segments_to_score(voice=score["piano voice"], function=pitch.transform_iv())
+library.add_segments_to_score(voice=score["piano voice"], function=pitch.transform_v())
 
-# render file
+# show music
 
-trinton.render_file(
-    score=score,
-    segment_path="/Users/trintonprater/scores/drava/drava/sketches",
-    build_path="/Users/trintonprater/scores/drava/drava/build",
-    segment_name="pitch_segments",
-    includes=[
-        "/Users/trintonprater/scores/drava/drava/build/pitch-sketch-stylesheet.ily",
-        "/Users/trintonprater/abjad/abjad/scm/abjad.ily",
+score_block = abjad.Block(name="score")
+score_block.items.append(score)
+lilypond_file = abjad.LilyPondFile(
+    items=[
+        '\include "/Users/trintonprater/scores/drava/drava/build/pitch-sketch-stylesheet.ily"',
+        '\include "/Users/trintonprater/abjad/abjad/scm/abjad.ily"',
+        score_block,
     ],
 )
+abjad.show(lilypond_file)
