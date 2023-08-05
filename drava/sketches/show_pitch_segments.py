@@ -23,7 +23,11 @@ score = trinton.make_score_template(
 # library.add_segments_to_score(voice=score["piano voice"], function=pitch.transform_ii())
 # library.add_segments_to_score(voice=score["piano voice"], function=pitch.transform_iii())
 # library.add_segments_to_score(voice=score["piano voice"], function=pitch.transform_iv())
-library.add_segments_to_score(voice=score["piano voice"], function=pitch.transform_v())
+# library.add_segments_to_score(voice=score["piano voice"], function=pitch.transform_v())
+# library.add_segments_to_score(voice=score["piano voice"], function=pitch.package_moments())
+library.add_segments_to_score(
+    voice=score["piano voice"], function=pitch.partition_moments()
+)
 
 # show music
 

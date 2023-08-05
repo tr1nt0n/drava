@@ -254,3 +254,84 @@ def transform_v():
             penta_counter += 1
 
     return new_segments, new_labels
+
+
+# moments
+
+
+def package_moments():
+    segments, labels = transform_v()
+
+    center_index = trinton.return_middle_index(segments)
+
+    center_index = trinton.correct_redundant_floats(center_index)
+
+    beginning = segments[:center_index]
+
+    ending = segments[center_index + 1 :]
+
+    moments = []
+
+    for beginning_segment, ending_segment in zip(beginning, ending):
+        if beginning.index(beginning_segment) % 2 == 0:
+            beginning_segment = beginning_segment.transpose(6)
+            ending_segment = ending_segment.transpose(-3)
+            new_segment = []
+            for _ in beginning_segment:
+                new_segment.append(_.number)
+
+            for _ in ending_segment:
+                new_segment.append(_.number)
+
+            new_segment = trinton.remove_adjacent(new_segment)
+            new_segment = abjad.PitchClassSegment(new_segment)
+            moments.append(new_segment)
+
+        else:
+            new_segment = []
+            for _ in ending_segment:
+                new_segment.append(_.number)
+
+            for _ in beginning_segment:
+                new_segment.append(_.number)
+
+            new_segment = trinton.remove_adjacent(new_segment)
+            new_segment = abjad.PitchClassSegment(new_segment)
+            moments.append(new_segment)
+
+    moment_counter = 1
+    moment_labels = []
+
+    for moment in moments:
+        moment_labels.append(rf"moment {moment_counter}")
+        moment_counter += 1
+
+    return moments, moment_labels
+
+
+def partition_moments():
+    moments, labels = package_moments()
+
+    flat_pitch_class_list = []
+
+    for moment in moments:
+        for pitch_class in moment:
+            flat_pitch_class_list.append(pitch_class)
+
+    partitions = abjad.sequence.partition_by_counts(
+        flat_pitch_class_list, [5, 5, 3, 10], cyclic=True, overhang=True
+    )
+
+    moments = []
+
+    for partition in partitions:
+        moments.append(abjad.PitchClassSegment(partition))
+
+    moment_counter = 1
+    moment_labels = []
+
+    for moment in moments:
+        moment_labels.append(rf"partitioned moment {moment_counter}")
+        moment_counter += 1
+
+    return moments, moment_labels

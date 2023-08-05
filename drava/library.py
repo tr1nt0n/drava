@@ -31,7 +31,7 @@ def add_segments_to_score(voice, function):
             direction=abjad.UP,
         )
 
-        if len(abjad.select.leaves(container)) > 5:
+        if len(abjad.select.leaves(container)) > 10:
             abjad.attach(
                 abjad.LilyPondLiteral(
                     r"\set suggestAccidentals = ##t", "absolute_before"
