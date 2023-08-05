@@ -1,7 +1,7 @@
 \version "2.23.14"
 \language english
 #(set-default-paper-size "11x17landscape")
-#(set-global-staff-size 15)
+#(set-global-staff-size 17)
 #(ly:set-option 'relative-includes #t)
 
 \include "../library.ily"
@@ -172,7 +172,7 @@ afterGraceFraction = #(cons 15 16)
 
     \context {
         \Staff
-        fontSize = #-3
+        fontSize = #-1.5
         % \remove Time_signature_engraver
         \consists Duration_line_engraver
 
@@ -183,6 +183,7 @@ afterGraceFraction = #(cons 15 16)
         \override TimeSignature.whiteout-style = #'outline
         \override TimeSignature.whiteout = 1
         \override TimeSignature.layer = 4
+        \override TimeSignature.break-visibility = #end-of-line-invisible
 
         \override DurationLine.style = #'line
         \override DurationLine.thickness = #3

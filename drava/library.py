@@ -49,3 +49,35 @@ def add_segments_to_score(voice, function):
         selections = abjad.mutate.eject_contents(container)
 
         voice.extend(selections)
+
+
+def label_time_signature_sketch(voice, ts_pair_list, motion):
+    signatures = [abjad.TimeSignature(_) for _ in ts_pair_list]
+
+    measure_number_counter = 1
+
+    for signature in signatures:
+        skip = abjad.Skip((1, 1), multiplier=signature.duration)
+
+        abjad.attach(signature, skip)
+
+        abjad.attach(
+            abjad.Markup(
+                rf'\markup {{ "{motion} motion measure {measure_number_counter}" }}'
+            ),
+            skip,
+            direction=abjad.UP,
+        )
+
+        voice.append(skip)
+
+        measure_number_counter += 1
+
+    abjad.attach(
+        abjad.LilyPondLiteral(
+            r"\once \override Staff.BarLine.transparent = ##f", site="after"
+        ),
+        abjad.select.leaf(voice, -1),
+    )
+
+    abjad.attach(abjad.BarLine("|.", site="after"), abjad.select.leaf(voice, -1))
