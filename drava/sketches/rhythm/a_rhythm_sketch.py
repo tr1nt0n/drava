@@ -23,24 +23,13 @@ score = trinton.make_empty_score(
 
 # a rhythm sketch
 
-trinton.make_music(
-    lambda _: trinton.select_target(_, (1, 7)),
-    evans.RhythmHandler(
-        library.a_inner_voice_rhythm(
-            stage=3,
-            divisions=[
-                5,
-                3,
-            ],
-            subdivisions=[3, 5],
-            cycle_order=1,
-        ),
-    ),
-    evans.RewriteMeterCommand(boundary_depth=-2),
-    library.beam_a_rhythm(),
-    trinton.notehead_bracket_command(),
-    voice=score["piano voice"],
-    preprocessor=trinton.fuse_preprocessor((2, 1, 2)),
+library.morpheme_a_intermittent_rhythm(
+    score=score,
+    voice_name="piano voice",
+    measures=(1, 7),
+    fuse_groups=(3, 2, 2),
+    cycle_order=0,
+    map_index=0,
 )
 
 
@@ -56,3 +45,14 @@ lilypond_file = abjad.LilyPondFile(
     ],
 )
 abjad.show(lilypond_file)
+
+# trinton.render_file(
+#     score=score,
+#     segment_path="/Users/trintonprater/scores/drava/drava/sketches/rhythm",
+#     build_path="/Users/trintonprater/scores/drava/drava/build",
+#     segment_name="test",
+#     includes=[
+#         "/Users/trintonprater/scores/drava/drava/build/section-stylesheet.ily",
+#         "/Users/trintonprater/abjad/abjad/scm/abjad.ily",
+#     ],
+# )

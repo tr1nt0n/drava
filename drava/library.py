@@ -10,29 +10,11 @@ import quicktions
 
 # score
 
-# beaming
-
-
-def beam_a_rhythm(selector=trinton.pleaves()):
-    def beam(argument):
-        selections = selector(argument)
-        for tie in abjad.select.logical_ties(selections, pitched=True):
-            if abjad.get.has_indicator(tie[0], abjad.StartBeam):
-                pass
-            if abjad.get.has_indicator(tie[0], abjad.StopBeam):
-                pass
-            else:
-                abjad.beam(tie)
-
-    return beam
-
-
 # rhythm
 
 
 def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
     def rhythm(durations):
-
         tuplets = []
         new_divisions = []
         for division in divisions:
@@ -55,6 +37,8 @@ def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
         nested_music = rmakers.tuplet(durations, tuplets)
 
         components = abjad.Container(nested_music)
+
+        rmakers.rewrite_dots(components)
 
         for tuplet in abjad.select.tuplets(components):
             ties = abjad.select.logical_ties(tuplet)
@@ -143,7 +127,12 @@ def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
                 if isinstance(tuplet_parent, abjad.Tuplet):
                     abjad.attach(abjad.Tie(), abjad.select.leaf(tuplet, -1))
                 else:
-                    abjad.attach(abjad.Tie(), abjad.select.leaf(tuplet, 0))
+                    first_leaf = abjad.select.leaf(tuplet, 0)
+                    if abjad.get.has_indicator(first_leaf, abjad.Tie):
+                        next_leaf = abjad.select.with_next_leaf(first_leaf)[-1]
+                        abjad.attach(abjad.Tie(), next_leaf)
+                    else:
+                        abjad.attach(abjad.Tie(), first_leaf)
                     last_leaf = abjad.select.leaf(tuplet, -1)
                     if abjad.get.has_indicator(last_leaf, abjad.Tie):
                         pass
@@ -181,7 +170,7 @@ def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
             for tuplet in tuplets:
                 tuplet_parent = abjad.get.parentage(tuplet).parent
                 if isinstance(tuplet_parent, abjad.Tuplet):
-                    abjad.beam(tuplet)
+                    pass
                 else:
                     last_leaf = abjad.select.leaf(tuplet, -1)
                     if abjad.get.has_indicator(last_leaf, abjad.Tie):
@@ -191,8 +180,27 @@ def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
 
             abjad.detach(abjad.Tie, abjad.select.leaf(components, -1))
 
-        if stage == 3:
+        rmakers.trivialize(components)
+        rmakers.rewrite_rest_filled(components)
+        rmakers.rewrite_sustained(components)
+        rmakers.extract_trivial(components)
+        rmakers.rewrite_dots(components)
+        tuplets = abjad.select.tuplets(components)
+        for tuplet in tuplets:
+            prolation = tuplet.implied_prolation
+            if prolation.denominator == 3 and prolation.numerator % 2 == 0:
+                rmakers.force_diminution(tuplet)
+            if prolation.denominator == 7 and prolation.numerator % 2 == 0:
+                rmakers.force_augmentation(tuplet)
+            if prolation.denominator == 9 and prolation.numerator % 5 == 0:
+                rmakers.force_augmentation(tuplet)
+        tuplets = abjad.select.tuplets(components)
+        for tuplet in tuplets:
+            tuplet_parent = abjad.get.parentage(tuplet).parent
+            if isinstance(tuplet_parent, abjad.Tuplet):
+                abjad.beam(tuplet)
 
+        if stage == 3:
             for tuplet in abjad.select.tuplets(components):
                 tuplet_parent = abjad.get.parentage(tuplet).parent
                 if isinstance(tuplet_parent, abjad.Tuplet):
@@ -201,17 +209,100 @@ def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
                     if len(tuplet) > 1:
                         abjad.beam(abjad.select.leaves(tuplet))
 
-        rmakers.trivialize(components)
-        rmakers.rewrite_rest_filled(components)
-        rmakers.rewrite_sustained(components)
-        rmakers.extract_trivial(components)
-        rmakers.rewrite_dots(components)
-
         components = abjad.mutate.eject_contents(components)
 
         return components
 
     return rhythm
+
+
+def a_outer_voice_rhythm(cycle_order=1):
+    def half_durations(argument):
+        durations = []
+
+        for i, duration in enumerate(argument):
+            if i % 2 == cycle_order:
+                durations.append(duration)
+            else:
+                durations.append(duration / 2)
+                durations.append(duration / 2)
+
+        nested_music = rmakers.note(durations)
+
+        components = abjad.Container(nested_music)
+
+        logical_ties = abjad.select.logical_ties(components)
+
+        partitioned_components = abjad.sequence.partition_by_counts(
+            logical_ties, [3], cyclic=True, overhang=True
+        )
+
+        if cycle_order == 1:
+            first_tie_index = 1
+        else:
+            first_tie_index = 0
+
+        for group in partitioned_components:
+            abjad.attach(abjad.Tie(), group[first_tie_index][-1])
+            abjad.attach(abjad.Tie(), group[-1][-1])
+
+        components = abjad.mutate.eject_contents(components)
+
+        return components
+
+    return half_durations
+
+
+def beam_outer_voice_a():
+    def beam(argument):
+        logical_ties = abjad.select.logical_ties(argument)
+
+        for tie in logical_ties:
+            last_leaf = tie[-1]
+            next_leaf = abjad.select.with_next_leaf(last_leaf)[-1]
+            abjad.beam([last_leaf, next_leaf])
+
+    return beam
+
+
+def morpheme_a_intermittent_rhythm(
+    score, voice_name, measures, fuse_groups, cycle_order=1, map_index=0
+):
+    logistic_map = trinton.rotated_sequence(
+        [_ for _ in trinton.logistic_map(x=4, r=3.57, n=9) if _ > 2], map_index
+    )
+
+    trinton.make_music(
+        lambda _: trinton.select_target(_, measures),
+        evans.RhythmHandler(
+            a_inner_voice_rhythm(
+                stage=1,
+                divisions=logistic_map,
+                subdivisions=logistic_map[1:],
+                cycle_order=cycle_order,
+            ),
+        ),
+        evans.RewriteMeterCommand(boundary_depth=-2),
+        evans.IntermittentVoiceHandler(
+            rhythm_handler=evans.RhythmHandler(evans.talea([-100], 4)),
+            voice_name="morpheme a outer voice",
+            direction=abjad.DOWN,
+        ),
+        trinton.notehead_bracket_command(),
+        voice=score[voice_name],
+        preprocessor=trinton.fuse_preprocessor(fuse_groups),
+    )
+
+    trinton.make_music(
+        lambda _: trinton.select_target(_, measures),
+        evans.RhythmHandler(
+            a_outer_voice_rhythm(cycle_order=cycle_order),
+        ),
+        evans.RewriteMeterCommand(boundary_depth=-2),
+        beam_outer_voice_a(),
+        voice=score["morpheme a outer voice"],
+        preprocessor=trinton.fuse_preprocessor(fuse_groups),
+    )
 
 
 # sketch functions
