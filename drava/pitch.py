@@ -360,3 +360,49 @@ def partition_moments():
             c_counter += 1
 
     return moments, moment_labels
+
+
+def return_morpheme_a_pitch_lists(rotation):
+    moments, labels = partition_moments()
+
+    morpheme_a_moments = []
+
+    for moment in moments:
+        if len(moment) == 3:
+            morpheme_a_moments.append(moment)
+
+    voicings = []
+
+    for moment in morpheme_a_moments:
+        chord = []
+
+        alto = moment[0].number
+        tenor = moment[1].number
+        baritone = moment[2].number
+
+        if alto == baritone or baritone > alto:
+            baritone = baritone - 12
+
+        if tenor > alto:
+            tenor = tenor - 12
+
+        if baritone > tenor:
+            baritone = baritone - 12
+
+        chord.append(alto)
+        chord.append(tenor)
+        chord.append(baritone)
+
+        voicings.append(chord)
+
+    voicings = trinton.rotated_sequence(voicings, rotation % len(voicings))
+
+    outer_voices = []
+
+    inner_voice = []
+
+    for voicing in voicings:
+        outer_voices.append([voicing[0], voicing[-1]])
+        inner_voice.append(voicing[1])
+
+    return (outer_voices, inner_voice)

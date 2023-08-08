@@ -195,10 +195,11 @@ def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
             if prolation.denominator == 9 and prolation.numerator % 5 == 0:
                 rmakers.force_augmentation(tuplet)
         tuplets = abjad.select.tuplets(components)
-        for tuplet in tuplets:
-            tuplet_parent = abjad.get.parentage(tuplet).parent
-            if isinstance(tuplet_parent, abjad.Tuplet):
-                abjad.beam(tuplet)
+        if stage < 3:
+            for tuplet in tuplets:
+                tuplet_parent = abjad.get.parentage(tuplet).parent
+                if isinstance(tuplet_parent, abjad.Tuplet):
+                    abjad.beam(tuplet)
 
         if stage == 3:
             for tuplet in abjad.select.tuplets(components):
@@ -207,7 +208,7 @@ def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
                     pass
                 else:
                     if len(tuplet) > 1:
-                        abjad.beam(abjad.select.leaves(tuplet))
+                        abjad.beam(tuplet)
 
         components = abjad.mutate.eject_contents(components)
 
@@ -266,7 +267,7 @@ def beam_outer_voice_a():
 
 
 def morpheme_a_intermittent_rhythm(
-    score, voice_name, measures, fuse_groups, cycle_order=1, map_index=0
+    score, voice_name, measures, fuse_groups, stage=1, cycle_order=1, map_index=0
 ):
     logistic_map = trinton.rotated_sequence(
         [_ for _ in trinton.logistic_map(x=4, r=3.57, n=9) if _ > 2], map_index
@@ -276,7 +277,7 @@ def morpheme_a_intermittent_rhythm(
         lambda _: trinton.select_target(_, measures),
         evans.RhythmHandler(
             a_inner_voice_rhythm(
-                stage=1,
+                stage=stage,
                 divisions=logistic_map,
                 subdivisions=logistic_map[1:],
                 cycle_order=cycle_order,

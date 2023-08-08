@@ -28,10 +28,24 @@ library.morpheme_a_intermittent_rhythm(
     voice_name="piano voice",
     measures=(1, 7),
     fuse_groups=(3, 2, 2),
+    stage=3,
     cycle_order=0,
     map_index=0,
 )
 
+# inner voice one index behind outer voice tends towards more "suspension-y" results
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (1, 7)),
+    evans.PitchHandler(pitch.return_morpheme_a_pitch_lists(rotation=3)[1]),
+    voice=score["piano voice temp"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (1, 7)),
+    evans.PitchHandler(pitch.return_morpheme_a_pitch_lists(rotation=4)[0]),
+    voice=score["morpheme a outer voice"],
+)
 
 # show music
 
