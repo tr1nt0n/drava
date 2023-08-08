@@ -13,6 +13,24 @@ import quicktions
 # rhythm
 
 
+def respell_tuplets(tuplets):
+    for tuplet in tuplets:
+        prolation = tuplet.implied_prolation
+        if prolation.denominator == 3 and prolation.numerator % 2 == 0:
+            rmakers.force_diminution(tuplet)
+        if prolation.denominator == 5 and prolation.numerator % 3 == 0:
+            rmakers.force_augmentation(tuplet)
+        if prolation.denominator == 7 and prolation.numerator % 2 == 0:
+            rmakers.force_augmentation(tuplet)
+        if prolation.denominator == 9 and prolation.numerator % 5 == 0:
+            rmakers.force_augmentation(tuplet)
+        if prolation.denominator % 9 == 0 and prolation.numerator % 11 == 0:
+            rmakers.force_augmentation(tuplet)
+            tuplet.denominator = 11
+        if prolation.denominator == 15 and prolation.numerator % 2 == 0:
+            rmakers.force_augmentation(tuplet)
+
+
 def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
     def rhythm(durations):
         tuplets = []
@@ -186,14 +204,7 @@ def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
         rmakers.extract_trivial(components)
         rmakers.rewrite_dots(components)
         tuplets = abjad.select.tuplets(components)
-        for tuplet in tuplets:
-            prolation = tuplet.implied_prolation
-            if prolation.denominator == 3 and prolation.numerator % 2 == 0:
-                rmakers.force_diminution(tuplet)
-            if prolation.denominator == 7 and prolation.numerator % 2 == 0:
-                rmakers.force_augmentation(tuplet)
-            if prolation.denominator == 9 and prolation.numerator % 5 == 0:
-                rmakers.force_augmentation(tuplet)
+        respell_tuplets(tuplets)
         tuplets = abjad.select.tuplets(components)
         if stage < 3:
             for tuplet in tuplets:
@@ -267,10 +278,10 @@ def beam_outer_voice_a():
 
 
 def morpheme_a_intermittent_rhythm(
-    score, voice_name, measures, fuse_groups, stage=1, cycle_order=1, map_index=0
+    score, voice_name, measures, fuse_groups, stage=1, cycle_order=1, rotation=0
 ):
     logistic_map = trinton.rotated_sequence(
-        [_ for _ in trinton.logistic_map(x=4, r=3.57, n=9) if _ > 2], map_index
+        [_ for _ in trinton.logistic_map(x=4, r=3.57, n=9) if _ > 2], rotation
     )
 
     trinton.make_music(
@@ -304,6 +315,78 @@ def morpheme_a_intermittent_rhythm(
         voice=score["morpheme a outer voice"],
         preprocessor=trinton.fuse_preprocessor(fuse_groups),
     )
+
+
+def c_rhythm(register, rotation=0, stage=1):
+    def rhythm(durations):
+        logistic_map = [_ for _ in trinton.logistic_map(x=2, r=3.58, n=9) if _ > 2]
+        logistic_map = trinton.rotated_sequence(logistic_map, rotation)
+
+        upper_voice_tuplets = []
+        lower_voice_tuplets = []
+
+        for i, digit in enumerate(logistic_map):
+            tuplet = []
+            for _ in range(digit):
+                if stage == 1:
+                    long_note = digit / 2
+                    long_note = math.ceil(long_note)
+                    tuplet.append(-long_note)
+                    if i % 2 == 0:
+                        tuplet.append(1)
+                    else:
+                        tuplet.append(2)
+
+                if stage > 1:
+                    long_note = digit / 2
+                    long_note = math.ceil(long_note)
+                    tuplet.append(long_note)
+                    if i % 2 == 0:
+                        tuplet.append(-1)
+                    else:
+                        tuplet.append(-2)
+
+            tuplet = tuple(tuplet)
+
+            if i % 2 == 0:
+                upper_voice_tuplets.append(tuplet)
+            else:
+                lower_voice_tuplets.append(tuplet)
+
+        upper_nested_music = rmakers.tuplet(durations, upper_voice_tuplets)
+        lower_nested_music = rmakers.tuplet(durations, lower_voice_tuplets)
+
+        upper_container = abjad.Container(upper_nested_music)
+        lower_container = abjad.Container(lower_nested_music)
+
+        for container in [upper_container, lower_container]:
+            if stage == 3:
+                rests = abjad.select.rests(container)
+                patterned_selector = trinton.patterned_leaf_index_selector([0, 5, 7], 8)
+                patterned_rests = patterned_selector(rests)
+                for rest in patterned_rests:
+                    rmakers.force_note(rest)
+
+            tuplets = abjad.select.tuplets(container)
+            for tuplet in tuplets:
+                abjad.beam(tuplet)
+            rmakers.trivialize(container)
+            rmakers.rewrite_rest_filled(container)
+            rmakers.rewrite_sustained(container)
+            rmakers.extract_trivial(container)
+            rmakers.rewrite_dots(container)
+            tuplets = abjad.select.tuplets(container)
+            respell_tuplets(tuplets)
+
+        upper_components = abjad.mutate.eject_contents(upper_container)
+        lower_components = abjad.mutate.eject_contents(lower_container)
+
+        if register == "upper":
+            return upper_components
+        if register == "lower":
+            return lower_components
+
+    return rhythm
 
 
 # sketch functions
