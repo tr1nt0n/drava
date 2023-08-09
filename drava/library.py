@@ -10,6 +10,48 @@ import quicktions
 
 # score
 
+# notation tools
+
+
+def c_ornaments(
+    selector=trinton.patterned_tie_index_selector(
+        [0, 5, 7], 8, pitched=True, first=True
+    ),
+    rotation=0,
+):
+    def ornaments(argument):
+        selections = selector(argument)
+        selections = abjad.select.logical_ties(selections, pitched=True)
+
+        ornament_list = [
+            "prall",
+            "mordent",
+            "turn",
+            "prallup",
+            "turn",
+            "pralldown",
+            "mordent",
+            "upmordent",
+            "prall",
+            "downmordent",
+            "prall",
+            "turn",
+            "mordent",
+            "prallup",
+            "downmordent",
+            "turn",
+        ]
+
+        ornament_list = trinton.rotated_sequence(
+            ornament_list, rotation % len(ornament_list)
+        )
+
+        for ornament, tie in zip(itertools.cycle(ornament_list), selections):
+            abjad.attach(abjad.Articulation(ornament), tie[0])
+
+    return ornaments
+
+
 # rhythm
 
 
@@ -27,6 +69,8 @@ def respell_tuplets(tuplets):
         if prolation.denominator % 9 == 0 and prolation.numerator % 11 == 0:
             rmakers.force_augmentation(tuplet)
             tuplet.denominator = 11
+        if prolation.denominator % 10 == 0 and prolation.numerator % 11 == 0:
+            rmakers.force_augmentation(tuplet)
         if prolation.denominator == 15 and prolation.numerator % 2 == 0:
             rmakers.force_augmentation(tuplet)
 
@@ -294,7 +338,7 @@ def morpheme_a_intermittent_rhythm(
                 cycle_order=cycle_order,
             ),
         ),
-        evans.RewriteMeterCommand(boundary_depth=-2),
+        # evans.RewriteMeterCommand(boundary_depth=-2),
         evans.IntermittentVoiceHandler(
             rhythm_handler=evans.RhythmHandler(evans.talea([-100], 4)),
             voice_name="morpheme a outer voice",
@@ -310,7 +354,7 @@ def morpheme_a_intermittent_rhythm(
         evans.RhythmHandler(
             a_outer_voice_rhythm(cycle_order=cycle_order),
         ),
-        evans.RewriteMeterCommand(boundary_depth=-2),
+        # evans.RewriteMeterCommand(boundary_depth=-2),
         beam_outer_voice_a(),
         voice=score["morpheme a outer voice"],
         preprocessor=trinton.fuse_preprocessor(fuse_groups),
@@ -387,6 +431,53 @@ def c_rhythm(register, rotation=0, stage=1):
             return lower_components
 
     return rhythm
+
+
+def morpheme_b_intermittent_rhythm(
+    score, voice_name, measures, fuse_groups, stage=(1, 1), rotation=(0, 0)
+):
+    if isinstance(stage, tuple):
+        pass
+
+    else:
+        raise Exception(
+            "Stage must be a tuple wherein the first item corresponds to the upper voice and the second to the lower."
+        )
+
+    if isinstance(rotation, tuple):
+        pass
+
+    else:
+        raise Exception(
+            "Rotation must be a tuple wherein the first item corresponds to the upper voice and the second to the lower."
+        )
+
+    trinton.make_music(
+        lambda _: trinton.select_target(_, measures),
+        evans.RhythmHandler(
+            c_rhythm(register="upper", rotation=rotation[0], stage=stage[0]),
+        ),
+        # evans.RewriteMeterCommand(boundary_depth=-2),
+        evans.IntermittentVoiceHandler(
+            rhythm_handler=evans.RhythmHandler(evans.talea([-100], 4)),
+            voice_name="morpheme b lower voice",
+            direction=abjad.DOWN,
+        ),
+        trinton.notehead_bracket_command(),
+        voice=score[voice_name],
+        preprocessor=trinton.fuse_preprocessor(fuse_groups),
+    )
+
+    trinton.make_music(
+        lambda _: trinton.select_target(_, measures),
+        evans.RhythmHandler(
+            c_rhythm(register="lower", rotation=rotation[-1], stage=stage[-1]),
+        ),
+        # evans.RewriteMeterCommand(boundary_depth=-2),
+        trinton.notehead_bracket_command(),
+        voice=score["morpheme b lower voice"],
+        preprocessor=trinton.fuse_preprocessor(fuse_groups),
+    )
 
 
 # sketch functions

@@ -362,7 +362,7 @@ def partition_moments():
     return moments, moment_labels
 
 
-def return_morpheme_a_pitch_lists(rotation):
+def return_morpheme_a_pitch_lists(rotation=0):
     moments, labels = partition_moments()
 
     morpheme_a_moments = []
@@ -406,3 +406,65 @@ def return_morpheme_a_pitch_lists(rotation):
         inner_voice.append(voicing[1])
 
     return (outer_voices, inner_voice)
+
+
+def return_morpheme_c_pitch_list(rotation=0):
+    moments, labels = partition_moments()
+
+    morpheme_c_moments = []
+
+    for moment in moments:
+        if len(moment) == 10:
+            morpheme_c_moments.append(moment)
+
+    flattened_pitch_list = []
+
+    for moment in morpheme_c_moments:
+        for pitch_class in moment:
+            flattened_pitch_list.append(pitch_class.number)
+
+    flattened_pitch_list = trinton.rotated_sequence(
+        flattened_pitch_list, rotation % len(flattened_pitch_list)
+    )
+
+    chorded_pitch_list = []
+
+    for i, pitch in enumerate(flattened_pitch_list):
+        if i % 5 == 0 and i != 0:
+            chorded_pitch_list.append([pitch])
+        else:
+            chorded_pitch_list.append(pitch)
+
+    pitch_list = []
+
+    for current_pitch, previous_pitch, future_pitch in zip(
+        chorded_pitch_list,
+        trinton.rotated_sequence(flattened_pitch_list, len(flattened_pitch_list) - 1),
+        trinton.rotated_sequence(flattened_pitch_list, 1),
+    ):
+        if isinstance(current_pitch, list):
+            current_pitch = current_pitch[0]
+            if isinstance(previous_pitch, list):
+                previous_pitch = previous_pitch[0]
+            if isinstance(future_pitch, list):
+                future_pitch = future_pitch[0]
+            upper_pitch = current_pitch + previous_pitch
+            lower_pitch = current_pitch - future_pitch
+            upper_pitch = upper_pitch % 12
+            lower_pitch = lower_pitch % 12
+            if upper_pitch == current_pitch:
+                upper_pitch = upper_pitch + 1
+            if lower_pitch == current_pitch:
+                lower_pitch = lower_pitch - 1
+            if upper_pitch == lower_pitch:
+                lower_pitch = lower_pitch - 1
+            if upper_pitch == current_pitch:
+                upper_pitch = upper_pitch + 1
+            if lower_pitch == current_pitch:
+                lower_pitch = lower_pitch - 1
+            chord = [upper_pitch, current_pitch, lower_pitch]
+            pitch_list.append(chord)
+        else:
+            pitch_list.append(current_pitch)
+
+    return pitch_list
