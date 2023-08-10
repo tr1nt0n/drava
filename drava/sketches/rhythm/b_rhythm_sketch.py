@@ -27,7 +27,7 @@ library.morpheme_b_rhythm(
     voice=score["piano voice"],
     measures=(1, 7),
     fuse_groups=(2, 1),
-    stage=2,
+    stage=3,
     rotation=2,
     manual="single",
     rests=False,
@@ -36,7 +36,7 @@ library.morpheme_b_rhythm(
 
 trinton.make_music(
     lambda _: trinton.select_target(_, (1, 7)),
-    library.pitch_morpheme_b(stage=2, rotation=0),
+    library.pitch_morpheme_b(stage=3, rotation=0),
     voice=score["piano voice"],
 )
 
