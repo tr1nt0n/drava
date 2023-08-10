@@ -21,12 +21,11 @@ score = trinton.make_empty_score(
     time_signatures=ts.second_motion_time_signatures[0:7],
 )
 
-# a rhythm sketch
-
+# c rhythm sketch
 
 trinton.make_music(
     lambda _: trinton.select_target(_, (1, 7)),
-    evans.RhythmHandler(library.c_rhythm(register="upper", rotation=10, stage=3)),
+    evans.RhythmHandler(library.c_rhythm(register="upper", rotation=10, stage=1)),
     evans.PitchHandler(["ef''"]),
     trinton.pitch_with_selector_command(
         pitch_list=["df''"],

@@ -7,6 +7,7 @@ import fractions
 import itertools
 import math
 import quicktions
+from drava import pitch
 
 # score
 
@@ -52,7 +53,38 @@ def c_ornaments(
     return ornaments
 
 
-# rhythm
+def beam_b_rhythm():
+    def beam(argument):
+        pleaves = abjad.select.leaves(argument, pitched=True, grace=False)
+
+        non_anchors = []
+
+        for leaf in pleaves:
+            parentage = abjad.get.parentage(leaf)
+            voice_name = parentage.logical_voice()["voice"]
+
+            if voice_name[-7:] == "Anchor'":
+                pass
+
+            else:
+                non_anchors.append(leaf)
+
+        contiguous_groups = abjad.select.group_by_contiguity(non_anchors)
+
+        for group in contiguous_groups:
+            logical_ties = abjad.select.logical_ties(group)
+            for tie, future_tie in zip(logical_ties, logical_ties[1:]):
+                last_leaf = tie[-1]
+                first_leaf = future_tie[0]
+
+                if abjad.get.duration(last_leaf, preprolated=True) < abjad.Duration(
+                    1, 4
+                ) and abjad.get.duration(first_leaf, preprolated=True) < abjad.Duration(
+                    1, 4
+                ):
+                    abjad.beam([last_leaf, first_leaf])
+
+    return beam
 
 
 def respell_tuplets(tuplets):
@@ -64,6 +96,8 @@ def respell_tuplets(tuplets):
             rmakers.force_augmentation(tuplet)
         if prolation.denominator == 7 and prolation.numerator % 2 == 0:
             rmakers.force_augmentation(tuplet)
+        if prolation.denominator == 7 and prolation.numerator % 5 == 0:
+            rmakers.force_augmentation(tuplet)
         if prolation.denominator == 9 and prolation.numerator % 5 == 0:
             rmakers.force_augmentation(tuplet)
         if prolation.denominator % 9 == 0 and prolation.numerator % 11 == 0:
@@ -73,6 +107,89 @@ def respell_tuplets(tuplets):
             rmakers.force_augmentation(tuplet)
         if prolation.denominator == 15 and prolation.numerator % 2 == 0:
             rmakers.force_augmentation(tuplet)
+
+
+# pitch
+
+
+def pitch_morpheme_b(stage=1, selector=trinton.pleaves(), rotation=0):
+    def pitch_morpheme(argument):
+        selections = selector(argument)
+        pties = abjad.select.logical_ties(selections, pitched=True, grace=False)
+
+        handler = handler = evans.PitchHandler(["ef'", "df'"])
+        handler(pties)
+
+        if stage > 1:
+            graces = abjad.select.logical_ties(selections, pitched=True, grace=True)
+            grace_groups = abjad.select.group_by_contiguity(graces)
+            tuplets = abjad.select.tuplets(argument)
+
+            moments, labels = pitch.partition_moments()
+            morpheme_b_moments = []
+
+            for moment in moments:
+                if len(moment) == 5:
+                    morpheme_b_moments.append(moment)
+
+            morpheme_b_moments = trinton.rotated_sequence(
+                morpheme_b_moments, rotation % len(morpheme_b_moments)
+            )
+
+            for grace_group, moment in zip(
+                grace_groups, itertools.cycle(morpheme_b_moments)
+            ):
+                pitch_list = [_.number for _ in moment]
+                fundamental = abjad.select.with_next_leaf(grace_group[-1][0])[-1]
+                pitch_list.insert(0, fundamental.written_pitch.name)
+                handler = evans.PitchHandler(pitch_list)
+                handler(grace_group)
+
+            for tuplet, moment in zip(tuplets, itertools.cycle(morpheme_b_moments)):
+                tuplet_parent = abjad.get.parentage(tuplet).parent
+                if isinstance(tuplet_parent, abjad.Tuplet):
+                    pitch_list = [_.number for _ in moment]
+                    handler = evans.PitchHandler(pitch_list)
+                    handler(tuplet)
+
+        trill_ties = []
+
+        pties = abjad.select.logical_ties(argument, pitched=True, grace=False)
+
+        for tie in pties:
+            tie_duration = abjad.get.duration(tie, preprolated=True)
+            if tie_duration >= abjad.Duration(1, 4):
+                trill_ties.append(tie)
+
+        for i, tie in enumerate(trill_ties):
+            if i % 3 == 0:
+                start_trill = abjad.StartTrillSpan(interval=abjad.NamedInterval("M2"))
+            if i % 3 == 1:
+                start_trill = abjad.StartTrillSpan(interval=abjad.NamedInterval("-A4"))
+            if i % 3 == 2:
+                start_trill = abjad.StartTrillSpan(interval=abjad.NamedInterval("m2"))
+
+            abjad.attach(start_trill, tie[0])
+
+            next_leaf = abjad.select.with_next_leaf(tie[-1])[-1]
+            next_leaf_parent = abjad.get.parentage(next_leaf).parent
+            abjad.attach(abjad.StopTrillSpan(), next_leaf)
+
+            if isinstance(next_leaf_parent, abjad.OnBeatGraceContainer):
+                tie_duration = abjad.get.duration(tie)
+                padding = float(tie_duration) * 96
+                abjad.attach(
+                    abjad.LilyPondLiteral(
+                        rf"\once \override TrillSpanner.bound-details.right.padding = #{padding}",
+                        "before",
+                    ),
+                    tie[0],
+                )
+
+    return pitch_morpheme
+
+
+# rhythm
 
 
 def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
@@ -361,7 +478,195 @@ def morpheme_a_intermittent_rhythm(
     )
 
 
-def c_rhythm(register, rotation=0, stage=1):
+def b_rhythm(
+    stage=1,
+    rotation=0,
+    manual="single",
+    rests=False,
+):
+    def rhythm(durations):
+        logistic_map = trinton.logistic_map(x=2, r=3.57, n=9)
+        talea_counts = [_ for _ in logistic_map if _ > 0]
+        talea_counts = trinton.rotated_sequence(
+            talea_counts, rotation % len(talea_counts)
+        )
+        extra_counts = [_ for _ in logistic_map if _ < 5 and _ != 3]
+        extra_counts = trinton.rotated_sequence(
+            extra_counts, rotation % len(extra_counts)
+        )
+
+        nested_music = rmakers.talea(
+            durations, talea_counts, 16, extra_counts=extra_counts
+        )
+
+        components = abjad.Container(nested_music)
+
+        rmakers.rewrite_dots(components)
+
+        if rests is True:
+            patterned_tie_selector = trinton.patterned_tie_index_selector([2], 3)
+            rest_selections = patterned_tie_selector(components)
+            for tie in rest_selections:
+                rmakers.force_rest(tie)
+
+        if stage == 3:
+            subdivisions = [_ for _ in logistic_map if _ > 4 and _ < 8]
+            subdivisions = trinton.rotated_sequence(
+                subdivisions, rotation % len(subdivisions)
+            )
+            pties = abjad.select.logical_ties(components, pitched=True, grace=False)
+            relevant_ties = [
+                _
+                for _ in pties
+                if abjad.get.duration(_, preprolated=True) < abjad.Duration(1, 4)
+            ]
+            for tie, subdivision in zip(relevant_ties, subdivisions):
+                tie_duration = abjad.get.duration(tie, preprolated=True)
+                tuplet = [1 for _ in range(subdivision)]
+                tuplet = tuple(tuplet)
+                nested_music = rmakers.tuplet([tie_duration], [tuplet])
+                container = abjad.Container(nested_music)
+
+                tuplets = abjad.mutate.eject_contents(container)
+
+                abjad.mutate.replace(tie[0], tuplets)
+
+        if manual != "single":
+            upper_components = abjad.mutate.copy(components)
+            lower_components = abjad.mutate.copy(components)
+            upper_component_ties = abjad.select.logical_ties(upper_components)
+            lower_component_tuplets = abjad.select.tuplets(lower_components)
+
+            for tie in upper_component_ties:
+                tie_duration = abjad.get.duration(tie, preprolated=True)
+                if tie_duration > abjad.Duration(1, 4):
+                    rmakers.force_rest(tie)
+
+            for tuplet in lower_component_tuplets:
+                tuplet_parent = abjad.get.parentage(tuplet).parent
+                if isinstance(tuplet_parent, abjad.Tuplet):
+                    tuplet_duration = abjad.get.duration(tuplet, preprolated=True)
+                    replacement_leaf = abjad.Note("c'", tuplet_duration)
+                    abjad.mutate.replace(tuplet, replacement_leaf)
+
+            lower_component_ties = abjad.select.logical_ties(lower_components)
+            for tie in lower_component_ties:
+                tie_duration = abjad.get.duration(tie, preprolated=True)
+
+                if tie_duration < abjad.Duration(1, 4):
+                    rmakers.force_rest(tie)
+
+            components = [upper_components, lower_components]
+
+        else:
+            components = [components]
+
+        def manage_tuplets(items):
+            for item in items:
+                rmakers.trivialize(item)
+                rmakers.rewrite_sustained(item)
+                rmakers.extract_trivial(item)
+                rmakers.rewrite_dots(item)
+                tuplets = abjad.select.tuplets(item)
+                respell_tuplets(tuplets)
+                for tuplet in tuplets:
+                    if stage != 2:
+                        tuplet_parent = abjad.get.parentage(tuplet).parent
+                        if isinstance(tuplet_parent, abjad.Tuplet):
+                            pass
+                        else:
+                            contiguous_groups = abjad.select.group_by_contiguity(
+                                abjad.select.leaves(tuplet, pitched=True)
+                            )
+                            for group in contiguous_groups:
+                                abjad.beam(group)
+
+        manage_tuplets(components)
+
+        if manual == "upper" or manual == "single":
+            components = abjad.mutate.eject_contents(components[0])
+
+        if manual == "lower":
+            components = abjad.mutate.eject_contents(components[-1])
+
+        return components
+
+    return rhythm
+
+
+def b_rhythm_graces(counter=1):
+    def graces(argument):
+        pties = abjad.select.logical_ties(argument, pitched=True, grace=False)
+
+        relevant_ties = [
+            _
+            for _ in pties
+            if abjad.get.duration(_, preprolated=True) < abjad.Duration(1, 4)
+        ]
+
+        name_count = counter
+
+        for i, tie in enumerate(relevant_ties):
+            grace_name = f"graces {name_count}"
+            first_leaf_of_tie_duration = abjad.get.duration(tie[0])
+
+            if i % 2 == 0:
+                durations = [abjad.Duration(1, 32) for _ in range(6)]
+
+            else:
+                durations = [abjad.Duration(1, 32) for _ in range(5)]
+
+            nested_music = rmakers.note(durations)
+            nested_music_logical_ties = abjad.select.logical_ties(nested_music)
+            leaf_denominator = len(nested_music_logical_ties)
+            leaf_duration = first_leaf_of_tie_duration / leaf_denominator
+            grace_components = abjad.Container(nested_music)
+            grace_components = abjad.mutate.eject_contents(grace_components)
+
+            container = trinton.on_beat_grace_container(
+                contents=grace_components,
+                anchor_voice_selection=tie,
+                leaf_duration=leaf_duration,
+                do_not_slur=False,
+                name=grace_name,
+            )
+
+            name_count += 1
+
+    return graces
+
+
+def morpheme_b_rhythm(
+    voice,
+    measures,
+    fuse_groups,
+    stage=1,
+    rotation=0,
+    manual="single",
+    rests=False,
+    counter=1,
+):
+
+    trinton.make_music(
+        lambda _: trinton.select_target(_, measures),
+        evans.RhythmHandler(
+            b_rhythm(stage=stage, rotation=rotation, manual=manual, rests=rests)
+        ),
+        trinton.notehead_bracket_command(),
+        voice=voice,
+        preprocessor=trinton.fuse_preprocessor(fuse_groups),
+    )
+
+    if stage == 2:
+        trinton.make_music(
+            lambda _: trinton.select_target(_, measures),
+            b_rhythm_graces(counter=counter),
+            beam_b_rhythm(),
+            voice=voice,
+        )
+
+
+def c_rhythm(register, stage=1, rotation=0):
     def rhythm(durations):
         logistic_map = [_ for _ in trinton.logistic_map(x=2, r=3.58, n=9) if _ > 2]
         logistic_map = trinton.rotated_sequence(logistic_map, rotation)
@@ -433,7 +738,7 @@ def c_rhythm(register, rotation=0, stage=1):
     return rhythm
 
 
-def morpheme_b_intermittent_rhythm(
+def morpheme_c_intermittent_rhythm(
     score, voice_name, measures, fuse_groups, stage=(1, 1), rotation=(0, 0)
 ):
     if isinstance(stage, tuple):
