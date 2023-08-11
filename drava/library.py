@@ -161,11 +161,13 @@ def pitch_morpheme_b(stage=1, selector=trinton.pleaves(), rotation=0):
             if tie_duration >= abjad.Duration(1, 4):
                 trill_ties.append(tie)
 
+        pre_grace_ties = []
+
         for i, tie in enumerate(trill_ties):
             if i % 3 == 0:
                 start_trill = abjad.StartTrillSpan(interval=abjad.NamedInterval("M2"))
             if i % 3 == 1:
-                start_trill = abjad.StartTrillSpan(interval=abjad.NamedInterval("-A4"))
+                start_trill = abjad.StartTrillSpan(interval=abjad.NamedInterval("-d5"))
             if i % 3 == 2:
                 start_trill = abjad.StartTrillSpan(interval=abjad.NamedInterval("m2"))
 
@@ -176,15 +178,27 @@ def pitch_morpheme_b(stage=1, selector=trinton.pleaves(), rotation=0):
             abjad.attach(abjad.StopTrillSpan(), next_leaf)
 
             if isinstance(next_leaf_parent, abjad.OnBeatGraceContainer):
-                tie_duration = abjad.get.duration(tie)
-                padding = float(tie_duration) * 96
+                pre_grace_ties.append(tie)
+
+            else:
+                abjad.attach(abjad.StopTrillSpan(), next_leaf)
+
+        for pre_grace_tie in pre_grace_ties:
+            if len(pre_grace_tie) > 1:
+                after_grace_container = abjad.AfterGraceContainer("s16")
                 abjad.attach(
-                    abjad.LilyPondLiteral(
-                        rf"\once \override TrillSpanner.bound-details.right.padding = #{padding}",
-                        "before",
-                    ),
-                    tie[0],
+                    abjad.StopTrillSpan(), abjad.select.leaf(after_grace_container, 0)
                 )
+                abjad.attach(after_grace_container, pre_grace_tie[-1])
+            else:
+                indicators = abjad.get.indicators(pre_grace_tie[0])
+                new_note = abjad.Note(abjad.select.leaf(pre_grace_tie, 0))
+                for indicator in indicators:
+                    abjad.attach(indicator, new_note)
+                skip = abjad.Skip(1, multiplier=(0, 64))
+                abjad.attach(abjad.StopTrillSpan(), skip)
+                components = [new_note, skip]
+                abjad.mutate.replace(pre_grace_tie, components)
 
     return pitch_morpheme
 
@@ -611,10 +625,10 @@ def b_rhythm_graces(counter=1):
             first_leaf_of_tie_duration = abjad.get.duration(tie[0])
 
             if i % 2 == 0:
-                durations = [abjad.Duration(1, 32) for _ in range(6)]
+                durations = [abjad.Duration(1, 64) for _ in range(6)]
 
             else:
-                durations = [abjad.Duration(1, 32) for _ in range(5)]
+                durations = [abjad.Duration(1, 64) for _ in range(5)]
 
             nested_music = rmakers.note(durations)
             nested_music_logical_ties = abjad.select.logical_ties(nested_music)
