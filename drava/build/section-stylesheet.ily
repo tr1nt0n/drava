@@ -37,10 +37,10 @@ afterGraceFraction = #(cons 15 16)
         \consists Measure_spanner_engraver
         \override BarNumber.stencil = #(make-stencil-circler 0.1 0.75 ly:text-interface::print)
         \override BarNumber.Y-extent = ##f
-        \override BarNumber.Y-offset = -8
+        \override BarNumber.Y-offset = -4
         \override BarNumber.extra-offset = #'(-0.5 . 0.5)
-        \override BarNumber.font-size = 4
-        \override BarNumber.padding = 4
+        \override BarNumber.font-size = 1
+        \override BarNumber.padding = 1
         \override BarNumber.font-name = "Bodoni72 Book Italic"
         \override MetronomeMark.stencil = ##f
         \override VerticalAxisGroup.staff-staff-spacing = #'((basic-distance . 10) (minimum-distance . 10) (padding . 6) (stretchability . 0))
@@ -191,7 +191,44 @@ afterGraceFraction = #(cons 15 16)
         \override DurationLine.breakable = ##t
 
         \override InstrumentName.self-alignment-X = #CENTER
+    }
+
+    \context {
+        \Staff
+        \name TempoStaff
+        \type Engraver_group
+
+        \override Accidental.stencil = ##f
+
+        \override BarLine.bar-extent = #'(-2.5 . 2.5)
+
+        \override Clef.stencil = ##f
+
+        \override Dots.staff-position = #2
+
+        \override DurationLine.X-offset = 0.40
+
+        \override Glissando.bound-details.left.padding = #0.5
+        \override Glissando.bound-details.right.padding = #0.5
+
+        \override NoteHead.X-extent = #'(0 . 0)
+        \override NoteHead.transparent = ##t
+        \override NoteHead.no-ledgers = ##t
+
+        \override StaffSymbol.line-count = #2
+        \override StaffSymbol.line-positions = #'(5 -5)
+
+        \override Stem.direction = #up
+
         \RemoveAllEmptyStaves
+
+        \alias Staff
+    }
+
+    \context{
+        \GrandStaff
+        % \remove Time_signature_engraver
+        \accepts TempoStaff
     }
 
     \context {

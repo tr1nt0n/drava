@@ -192,7 +192,44 @@ afterGraceFraction = #(cons 15 16)
         \override DurationLine.breakable = ##t
 
         \override InstrumentName.self-alignment-X = #CENTER
+    }
+
+    \context {
+        \Staff
+        \name TempoStaff
+        \type Engraver_group
+
+        \override Accidental.stencil = ##f
+
+        \override BarLine.bar-extent = #'(-2.5 . 2.5)
+
+        \override Clef.stencil = ##f
+
+        \override Dots.staff-position = #2
+
+        \override DurationLine.X-offset = 0.40
+
+        \override Glissando.bound-details.left.padding = #0.5
+        \override Glissando.bound-details.right.padding = #0.5
+
+        \override NoteHead.X-extent = #'(0 . 0)
+        \override NoteHead.transparent = ##t
+        \override NoteHead.no-ledgers = ##t
+
+        \override StaffSymbol.line-count = #2
+        \override StaffSymbol.line-positions = #'(5 -5)
+
+        \override Stem.direction = #up
+
         \RemoveAllEmptyStaves
+
+        \alias Staff
+    }
+
+    \context{
+        \GrandStaff
+        % \remove Time_signature_engraver
+        \accepts TempoStaff
     }
 
     \context {
@@ -200,6 +237,7 @@ afterGraceFraction = #(cons 15 16)
         \remove Forbid_line_break_engraver
         \override Accidental.font-size = 1
     }
+
 }
 %
 \paper {

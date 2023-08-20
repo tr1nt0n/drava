@@ -11,7 +11,149 @@ from drava import pitch
 
 # score
 
+
+def drava_score(time_signatures):
+    score = trinton.make_empty_score(
+        instruments=[
+            abjad.Piano(),
+            abjad.Piano(),
+            abjad.Piano(),
+            abjad.Piano(),
+            abjad.Piano(),
+        ],
+        groups=[
+            1,
+            3,
+            1,
+        ],
+        staff_types=[
+            "TempoStaff",
+            [
+                "Staff",
+                "Staff",
+                "Staff",
+            ],
+            "Staff",
+        ],
+        time_signatures=time_signatures,
+    )
+
+    return score
+
+
+all_voice_names = eval(
+    """[
+    "piano 1 voice",
+    "piano 2 voice",
+    "piano 3 voice",
+    "piano 4 voice",
+    "piano 5 voice",
+    ]"""
+)
+
+# markup
+
+all_instrument_names = [
+    abjad.InstrumentName(
+        context="Staff",
+        markup=abjad.Markup(
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Book Italic") \center-column { \line { Vivace } \line { Grave } }'
+        ),
+    ),
+    abjad.InstrumentName(
+        context="Staff",
+        markup=abjad.Markup(
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Bold") { I }'
+        ),
+    ),
+    abjad.InstrumentName(
+        context="Staff",
+        markup=abjad.Markup(
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Bold") { II }'
+        ),
+    ),
+    abjad.InstrumentName(
+        context="Staff",
+        markup=abjad.Markup(
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Bold") { III }'
+        ),
+    ),
+    abjad.InstrumentName(
+        context="Staff",
+        markup=abjad.Markup(
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Book Italic") { Pedal }'
+        ),
+    ),
+]
+
+all_short_instrument_names = [
+    abjad.ShortInstrumentName(
+        context="Staff",
+        markup=abjad.Markup(
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Book Italic") \center-column { \line { Vivace } \line { Grave } }'
+        ),
+    ),
+    abjad.ShortInstrumentName(
+        context="Staff",
+        markup=abjad.Markup(
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Bold") { I }'
+        ),
+    ),
+    abjad.ShortInstrumentName(
+        context="Staff",
+        markup=abjad.Markup(
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Bold") { II }'
+        ),
+    ),
+    abjad.ShortInstrumentName(
+        context="Staff",
+        markup=abjad.Markup(
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Bold") { III }'
+        ),
+    ),
+    abjad.ShortInstrumentName(
+        context="Staff",
+        markup=abjad.Markup(
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Book Italic") { Ped. }'
+        ),
+    ),
+]
+
+
+def write_instrument_names(score):
+    for voice_name, markup in zip(all_voice_names, all_instrument_names):
+        trinton.attach(
+            voice=score[voice_name],
+            leaves=[0],
+            attachment=markup,
+        )
+
+
+def write_short_instrument_names(score):
+    for voice_name, markup in zip(all_voice_names, all_short_instrument_names):
+        trinton.attach(
+            voice=score[voice_name],
+            leaves=[0],
+            attachment=markup,
+        )
+
+
 # notation tools
+
+
+def change_staff(staves, selector=trinton.pleaves()):
+    def change(argument):
+        selections = selector(argument)
+
+        for selection, staff in zip(selections, staves):
+            abjad.attach(
+                abjad.LilyPondLiteral(
+                    rf'\change Staff = "{staff} staff"', "absolute_before"
+                ),
+                selection,
+            )
+
+    return change
 
 
 def c_ornaments(
@@ -110,6 +252,38 @@ def respell_tuplets(tuplets):
 
 
 # pitch
+
+
+def double_octave_up(selector=trinton.pleaves()):
+    def octave(argument):
+        selections = selector(argument)
+        abjad.mutate.transpose(selections, 24)
+
+    return octave
+
+
+def octave_up(selector=trinton.pleaves()):
+    def octave(argument):
+        selections = selector(argument)
+        abjad.mutate.transpose(selections, 12)
+
+    return octave
+
+
+def octave_down(selector=trinton.pleaves()):
+    def octave(argument):
+        selections = selector(argument)
+        abjad.mutate.transpose(selections, -24)
+
+    return octave
+
+
+def double_octave_down(selector=trinton.pleaves()):
+    def octave(argument):
+        selections = selector(argument)
+        abjad.mutate.transpose(selections, -24)
+
+    return octave
 
 
 def pitch_morpheme_b(stage=1, selector=trinton.pleaves(), rotation=0):
@@ -469,7 +643,7 @@ def morpheme_a_intermittent_rhythm(
                 cycle_order=cycle_order,
             ),
         ),
-        # evans.RewriteMeterCommand(boundary_depth=-2),
+        trinton.rewrite_meter_command(),
         evans.IntermittentVoiceHandler(
             rhythm_handler=evans.RhythmHandler(evans.talea([-100], 4)),
             voice_name="morpheme a outer voice",
@@ -485,7 +659,7 @@ def morpheme_a_intermittent_rhythm(
         evans.RhythmHandler(
             a_outer_voice_rhythm(cycle_order=cycle_order),
         ),
-        # evans.RewriteMeterCommand(boundary_depth=-2),
+        trinton.rewrite_meter_command(),
         beam_outer_voice_a(),
         voice=score["morpheme a outer voice"],
         preprocessor=trinton.fuse_preprocessor(fuse_groups),
@@ -871,3 +1045,79 @@ def label_time_signature_sketch(voice, ts_pair_list, motion):
     )
 
     abjad.attach(abjad.BarLine("|.", site="after"), abjad.select.leaf(voice, -1))
+
+
+# tempi
+
+metronome_marks = {
+    "48": abjad.MetronomeMark.make_tempo_equation_markup((1, 8), 48),
+    "80": abjad.MetronomeMark.make_tempo_equation_markup((1, 8), 80),
+    "120": abjad.MetronomeMark.make_tempo_equation_markup((1, 8), 120),
+    # slower
+    "4.=8": abjad.MetricModulation(
+        left_rhythm=abjad.Note("c4."), right_rhythm=abjad.Note("c8")
+    ),
+    "3:5(8)=8": abjad.MetricModulation(
+        left_rhythm=abjad.Tuplet("3:5", "c8"),
+        right_rhythm=abjad.Note("c8"),
+    ),
+    "2:5(8)=8": abjad.MetricModulation(
+        left_rhythm=abjad.Tuplet("2:5", "c8"),
+        right_rhythm=abjad.Note("c8"),
+    ),
+    # faster
+    "5:2(8)=8": abjad.MetricModulation(
+        left_rhythm=abjad.Tuplet("5:2", "c8"),
+        right_rhythm=abjad.Note("c8"),
+    ),
+    "5:3(8)=8": abjad.MetricModulation(
+        left_rhythm=abjad.Tuplet("5:3", "c8"),
+        right_rhythm=abjad.Note("c8"),
+    ),
+    "3:2(8)=8": abjad.MetricModulation(
+        left_rhythm=abjad.Tuplet("3:2", "c8"),
+        right_rhythm=abjad.Note("c8"),
+    ),
+}
+
+
+def metronome_markups(
+    met_string, mod_string=None, string_only=False, parenthesis=False, padding=1
+):
+    if mod_string is None:
+        if parenthesis is False:
+            mark = abjad.LilyPondLiteral(
+                [
+                    r"^ \markup {",
+                    rf"  \raise #{padding} \with-dimensions-from \null",
+                    r"  \override #'(font-size . 3.5)",
+                    r"  \concat {",
+                    f"      {met_string.string[8:]}",
+                    r"  }",
+                    r"}",
+                ],
+                site="after",
+            )
+            return mark
+        else:
+            mark = f"\markup {{ \override #'(font-size . 3.5) \concat {{ ( {met_string.string[8:]} ) }} }}"
+            return mark
+
+    else:
+        if string_only is True:
+            mark = f"\markup {{ \override #'(font-size . 3.5) \concat {{ {met_string.string[8:]} [{abjad.lilypond(mod_string)[8:]}] }} }}"
+        else:
+            mark = abjad.LilyPondLiteral(
+                [
+                    r"^ \markup {",
+                    rf"  \raise #{padding} \with-dimensions-from \null",
+                    r"  \override #'(font-size . 3.5)",
+                    r"  \concat {",
+                    f"      {met_string.string[8:]}",
+                    f"      [{abjad.lilypond(mod_string)[8:]}]",
+                    r"  }",
+                    r"}",
+                ],
+                site="after",
+            )
+        return mark
