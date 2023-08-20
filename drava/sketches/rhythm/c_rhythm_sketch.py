@@ -58,7 +58,6 @@ trinton.make_music(
     lambda _: trinton.select_target(_, (1, 7)),
     evans.RhythmHandler(library.c_rhythm(register="lower", rotation=12, stage=3)),
     evans.PitchHandler(pitch.return_morpheme_c_pitch_list(rotation=24)),
-    # evans.RewriteMeterCommand(boundary_depth=-2),
     library.c_ornaments(
         selector=trinton.patterned_tie_index_selector(
             [0, 5, 7], 8, pitched=True, first=True

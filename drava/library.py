@@ -141,6 +141,28 @@ def write_short_instrument_names(score):
 # notation tools
 
 
+def reset_line_positions(score, voice_names):
+    voices = [score[_] for _ in voice_names]
+
+    reset = abjad.LilyPondLiteral(
+        r"\once \revert Staff.StaffSymbol.line-positions", "before"
+    )
+
+    for voice in voices:
+        shards = abjad.select.group_by_measure(voice)
+        relevant_shards = []
+        for shard in shards:
+            if (
+                all(isinstance(leaf, abjad.Rest) for leaf in shard)
+                or all(isinstance(leaf, abjad.MultimeasureRest) for leaf in shard)
+                or all(isinstance(leaf, abjad.Skip) for leaf in shard)
+            ):
+                relevant_shards.append(shard)
+
+        for shard in relevant_shards:
+            abjad.attach(reset, shard[0])
+
+
 def change_staff(staves, selector=trinton.pleaves()):
     def change(argument):
         selections = selector(argument)
@@ -273,7 +295,7 @@ def octave_up(selector=trinton.pleaves()):
 def octave_down(selector=trinton.pleaves()):
     def octave(argument):
         selections = selector(argument)
-        abjad.mutate.transpose(selections, -24)
+        abjad.mutate.transpose(selections, -12)
 
     return octave
 
@@ -627,7 +649,14 @@ def beam_outer_voice_a():
 
 
 def morpheme_a_intermittent_rhythm(
-    score, voice_name, measures, fuse_groups, stage=1, cycle_order=1, rotation=0
+    score,
+    voice_name,
+    measures,
+    fuse_groups,
+    stage=1,
+    cycle_order=1,
+    rotation=0,
+    voice_number=1,
 ):
     logistic_map = trinton.rotated_sequence(
         [_ for _ in trinton.logistic_map(x=4, r=3.57, n=9) if _ > 2], rotation
@@ -646,7 +675,7 @@ def morpheme_a_intermittent_rhythm(
         trinton.rewrite_meter_command(),
         evans.IntermittentVoiceHandler(
             rhythm_handler=evans.RhythmHandler(evans.talea([-100], 4)),
-            voice_name="morpheme a outer voice",
+            voice_name=f"morpheme a outer voice {voice_number}",
             direction=abjad.DOWN,
         ),
         trinton.notehead_bracket_command(),
@@ -661,7 +690,7 @@ def morpheme_a_intermittent_rhythm(
         ),
         trinton.rewrite_meter_command(),
         beam_outer_voice_a(),
-        voice=score["morpheme a outer voice"],
+        voice=score[f"morpheme a outer voice {voice_number}"],
         preprocessor=trinton.fuse_preprocessor(fuse_groups),
     )
 
@@ -927,7 +956,13 @@ def c_rhythm(register, stage=1, rotation=0):
 
 
 def morpheme_c_intermittent_rhythm(
-    score, voice_name, measures, fuse_groups, stage=(1, 1), rotation=(0, 0)
+    score,
+    voice_name,
+    measures,
+    fuse_groups,
+    stage=(1, 1),
+    rotation=(0, 0),
+    voice_number=1,
 ):
     if isinstance(stage, tuple):
         pass
@@ -950,10 +985,9 @@ def morpheme_c_intermittent_rhythm(
         evans.RhythmHandler(
             c_rhythm(register="upper", rotation=rotation[0], stage=stage[0]),
         ),
-        # evans.RewriteMeterCommand(boundary_depth=-2),
         evans.IntermittentVoiceHandler(
             rhythm_handler=evans.RhythmHandler(evans.talea([-100], 4)),
-            voice_name="morpheme b lower voice",
+            voice_name=f"morpheme c lower voice {voice_number}",
             direction=abjad.DOWN,
         ),
         trinton.notehead_bracket_command(),
@@ -966,9 +1000,8 @@ def morpheme_c_intermittent_rhythm(
         evans.RhythmHandler(
             c_rhythm(register="lower", rotation=rotation[-1], stage=stage[-1]),
         ),
-        # evans.RewriteMeterCommand(boundary_depth=-2),
         trinton.notehead_bracket_command(),
-        voice=score["morpheme b lower voice"],
+        voice=score[f"morpheme c lower voice {voice_number}"],
         preprocessor=trinton.fuse_preprocessor(fuse_groups),
     )
 

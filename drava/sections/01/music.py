@@ -97,11 +97,6 @@ trinton.make_music(
         selector=trinton.ranged_selector(ranges=[range(2, 4)], nested=True)
     ),
     trinton.ottava_command(selector=trinton.select_leaves_by_index([0, -1])),
-    trinton.attachment_command(
-        attachments=[abjad.Dynamic("ppp")],
-        selector=trinton.select_leaves_by_index([0]),
-        direction=abjad.DOWN,
-    ),
     voice=score["piano 4 voice temp"],
 )
 
@@ -111,10 +106,41 @@ trinton.make_music(
     trinton.attachment_command(
         attachments=[abjad.Dynamic("ppp")],
         selector=trinton.select_leaves_by_index([0]),
+    ),
+    library.double_octave_up(),
+    voice=score["morpheme a outer voice 1"],
+)
+
+library.morpheme_a_intermittent_rhythm(
+    score=score,
+    voice_name="piano 4 voice",
+    measures=(13,),
+    fuse_groups=(1,),
+    stage=1,
+    cycle_order=0,
+    rotation=0,
+    voice_number=2,
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (13,)),
+    evans.PitchHandler(pitch.return_morpheme_a_pitch_lists(rotation=2)[1]),
+    trinton.force_accidentals_command(selector=trinton.select_leaves_by_index([0])),
+    library.double_octave_up(),
+    trinton.ottava_command(selector=trinton.select_leaves_by_index([0, -1])),
+    voice=score["piano 4 voice"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (13,)),
+    evans.PitchHandler(pitch.return_morpheme_a_pitch_lists(rotation=1)[0]),
+    trinton.attachment_command(
+        attachments=[abjad.Dynamic("ppp")],
+        selector=trinton.select_leaves_by_index([0]),
         direction=abjad.DOWN,
     ),
     library.double_octave_up(),
-    voice=score["morpheme a outer voice"],
+    voice=score["morpheme a outer voice 2"],
 )
 
 # pedal
@@ -131,13 +157,6 @@ trinton.make_music(
         selector=trinton.select_leaves_by_index([0]),
     ),
     trinton.change_notehead_command(notehead="lowest"),
-    trinton.attachment_command(
-        attachments=[
-            abjad.Clef("bass"),
-            abjad.Dynamic("pppp"),
-        ],
-        selector=trinton.select_leaves_by_index([0]),
-    ),
     trinton.attachment_command(
         attachments=[
             abjad.Markup(
@@ -177,6 +196,14 @@ trinton.make_music(
 library.write_instrument_names(score=score)
 
 library.write_short_instrument_names(score=score)
+
+library.reset_line_positions(score=score, voice_names=["piano 1 voice"])
+
+trinton.whiteout_empty_staves(
+    score=score,
+    voice_names=["piano 1 voice"],
+    cutaway="blank",
+)
 
 trinton.make_music(
     lambda _: trinton.select_target(_, (1,)),
@@ -240,7 +267,6 @@ trinton.make_music(
             library.metronome_markups(
                 met_string=library.metronome_marks["120"],
                 mod_string=library.metronome_marks["3:2(8)=8"],
-                padding=5,
             )
         ],
         selector=trinton.select_leaves_by_index([0]),

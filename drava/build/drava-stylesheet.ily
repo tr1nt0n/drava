@@ -12,7 +12,7 @@
 afterGraceFraction = #(cons 15 16)
 
 \header {
-    title = \markup \override #'(font-name . "QIJIFALLBACK") \center-column { \line \fontsize #20 { "द्रव | ३ गतय" } \fontsize #23 \with-color #white "."}
+    title = \markup \override #'(font-name . "Devanagari MT") \center-column { \line \fontsize #17 { "द्रव | ३ गतय" } \fontsize #23 \with-color #white "."}
     subtitle = \markup \fontsize #5 \center-column { \line { \override #'(font-name . "Bodoni72 Book") { for } \override #'(font-name . "Bodoni72 Book Italic") { Organ Solo } } \fontsize #0.01 \with-color #white "."}
     composer = \markup \override #'(font-name . "Bodoni72") \fontsize #4 {"Trinton Hlynn (*2000)"}
 }
@@ -37,10 +37,10 @@ afterGraceFraction = #(cons 15 16)
         \consists Measure_spanner_engraver
         \override BarNumber.stencil = #(make-stencil-circler 0.1 0.75 ly:text-interface::print)
         \override BarNumber.Y-extent = ##f
-        \override BarNumber.Y-offset = -8
+        \override BarNumber.Y-offset = -4
         \override BarNumber.extra-offset = #'(-0.5 . 0.5)
-        \override BarNumber.font-size = 4
-        \override BarNumber.padding = 4
+        \override BarNumber.font-size = 1
+        \override BarNumber.padding = 1
         \override BarNumber.font-name = "Bodoni72 Book Italic"
         \override MetronomeMark.stencil = ##f
         \override VerticalAxisGroup.staff-staff-spacing = #'((basic-distance . 10) (minimum-distance . 10) (padding . 6) (stretchability . 0))
@@ -135,7 +135,7 @@ afterGraceFraction = #(cons 15 16)
         \override Tie.height-limit = 6
         \override Tie.thickness = 1.5
 
-        \override TrillSpanner.bound-details.right.padding = #-5
+        % \override TrillSpanner.bound-details.right.padding = #-5
 
         % \shape #'((0 . 0) (0.5 . 0) (1 . 0) (2 . 0)) LaissezVibrerTie
         % \override LaissezVibrerTie.X-extent = ##f
@@ -247,7 +247,7 @@ afterGraceFraction = #(cons 15 16)
 	        #:brace "haydn"
 	))
     % max-systems-per-page = 3
-    system-separator-markup = \markup \fontsize #12 { \tremolo-moderato }
+    % system-separator-markup = \markup \fontsize #12 { \tremolo-moderato }
     system-system-spacing = #'((basic-distance . 22) (minimum-distance . 22) (padding . 16))
     indent = 20\mm
     short-indent = 15\mm
@@ -261,13 +261,13 @@ afterGraceFraction = #(cons 15 16)
     oddFooterMarkup = \markup
         \fill-line {
             \concat {
-                \override #'(font-name . "QIJIFALLBACK")
+                \override #'(font-name . "Devanagari MT")
                 "द्रव | ३ गतय"
                 \override #'(font-name . "Bodoni72 Book")
                 " - Trinton Hlynn"
             }
             \concat {
-                \fontsize #5
+                \fontsize #3
                 \override #'(font-name . "Bodoni72 Book")
                     \fromproperty #'page:page-number-string
             }
@@ -276,12 +276,12 @@ afterGraceFraction = #(cons 15 16)
         evenFooterMarkup = \markup
             \fill-line {
                 \concat {
-                    \fontsize #5
+                    \fontsize #3
                     \override #'(font-name . "Bodoni72 Book")
                         \fromproperty #'page:page-number-string
                 }
                 \concat {
-                    \override #'(font-name . "QIJIFALLBACK")
+                    \override #'(font-name . "Devanagari MT")
                     "द्रव | ३ गतय"
                     \override #'(font-name . "Bodoni72 Book")
                     " - Trinton Hlynn"

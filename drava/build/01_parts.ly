@@ -59,7 +59,7 @@
             \time 4/16
             s1 * 1/4
             ^ \markup {
-              \raise #5 \with-dimensions-from \null
+              \raise #1 \with-dimensions-from \null
               \override #'(font-size . 3.5)
               \concat {
                   \abjad-metronome-mark-markup #3 #0 #1 #"120"
@@ -83,21 +83,138 @@
             {
                 \context Voice = "piano 1 voice"
                 {
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
                     \set Staff.instrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") \center-column { \line { Vivace } \line { Grave } }
                     \set Staff.shortInstrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") \center-column { \line { Vivace } \line { Grave } }
-                    s1 * 1/4
-                    s1 * 3/16
-                    s1 * 7/16
-                    s1 * 1/8
-                    s1 * 1/8
-                    s1 * 3/16
-                    s1 * 5/16
-                    s1 * 1/4
-                    s1 * 3/16
-                    s1 * 3/4
-                    s1 * 5/16
-                    s1 * 1/4
-                    s1 * 3/16
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 1/4
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 3/16
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 7/16
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 1/8
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 1/8
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 3/16
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 5/16
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 1/4
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 3/16
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 3/4
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 5/16
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 1/4
+                      %! +SCORE
+                %%% \stopStaff \startStaff
+                      %! +SCORE
+                %%% \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                %%% \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 3/16
+                      %! +SCORE
+                %%% \stopStaff \startStaff
                 }
             }
             \context GrandStaff = "sub group 1"
@@ -206,7 +323,6 @@
                                 \ottava 1
                                 \voiceOne
                                 g'''8.
-                                _ \ppp
                                 ~
                                 g'''8.
                                 ~
@@ -243,11 +359,11 @@
                                     \ottava 0
                                 }
                             }
-                            \context Voice = "morpheme a outer voice"
+                            \context Voice = "morpheme a outer voice 1"
                             {
                                 \voiceTwo
                                 <e''' af'''>8.
-                                _ \ppp
+                                \ppp
                                 ~
                                 <e''' af'''>8.
                                 ~
@@ -268,7 +384,40 @@
                         >>
                         \oneVoice
                         s1 * 1/4
-                        s1 * 3/16
+                        <<
+                            \context Voice = "piano 4 voice temp"
+                            {
+                                \tweak text #tuplet-number::calc-fraction-text
+                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 5 6) (ly:make-duration 5 0))
+                                \times 6/5
+                                {
+                                    \ottava 1
+                                    \voiceOne
+                                    b''!16
+                                    ~
+                                    \tweak text #tuplet-number::calc-fraction-text
+                                    \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 8) (ly:make-duration 7 0))
+                                    \times 8/7
+                                    {
+                                        b''64.
+                                        [
+                                        e'''32
+                                        ]
+                                        ~
+                                    }
+                                    e'''32
+                                }
+                            }
+                            \context Voice = "morpheme a outer voice 2"
+                            {
+                                \voiceTwo
+                                <bf'' bf'''>8.
+                                _ \ppp
+                                ~
+                                \ottava 0
+                            }
+                        >>
+                        \oneVoice
                     }
                 }
             >>

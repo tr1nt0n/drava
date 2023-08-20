@@ -127,6 +127,7 @@ afterGraceFraction = #(cons 15 16)
         }
 
         \override TextScript.font-name = "Bodoni72 Book Italic"
+        \override TextScript.whiteout-style = #'outline
         \override TextScript.whiteout = 1
         \override TextSpanner.font-name = "Bodoni72 Book Italic"
 
@@ -245,7 +246,7 @@ afterGraceFraction = #(cons 15 16)
 	        #:brace "haydn"
 	))
     % max-systems-per-page = 3
-    system-separator-markup = \markup \fontsize #12 { \tremolo-moderato }
+    % system-separator-markup = \markup \fontsize #12 { \tremolo-moderato }
     system-system-spacing = #'((basic-distance . 22) (minimum-distance . 22) (padding . 16))
     indent = 20\mm
     short-indent = 15\mm
