@@ -80,106 +80,71 @@
                     R1 * 3/16
                       %! +SCORE
                 %%% \stopStaff \startStaff
-                      %! +SCORE
-                %%% \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                %%% \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 7/16
-                      %! +SCORE
-                %%% \stopStaff \startStaff
-                      %! +SCORE
-                %%% \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                %%% \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 1/8
-                      %! +SCORE
-                %%% \stopStaff \startStaff
-                      %! +SCORE
-                %%% \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                %%% \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 1/8
-                      %! +SCORE
-                %%% \stopStaff \startStaff
-                      %! +SCORE
-                %%% \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                %%% \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 3/16
-                      %! +SCORE
-                %%% \stopStaff \startStaff
-                      %! +SCORE
-                %%% \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                %%% \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 1/4
-                      %! +SCORE
-                %%% \stopStaff \startStaff
-                      %! +SCORE
-                %%% \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                %%% \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 3/4
-                      %! +SCORE
-                %%% \stopStaff \startStaff
-                      %! +SCORE
-                %%% \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                %%% \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 5/16
-                      %! +SCORE
-                %%% \stopStaff \startStaff
-                      %! +SCORE
-                %%% \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                %%% \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 7/16
-                      %! +SCORE
-                %%% \stopStaff \startStaff
-                      %! +SCORE
-                %%% \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                %%% \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 1/8
-                      %! +SCORE
-                %%% \stopStaff \startStaff
-                      %! +SCORE
-                %%% \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                %%% \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                %%% \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 1/8
-                      %! +SCORE
-                %%% \stopStaff \startStaff
+                    g''8..
+                    [
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    g''8..
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    g'8.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    g''16
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    e''16.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    e''16.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    g'16.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    g'8
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    b'32
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    g'16.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    a'16.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    ef''8.
+                    ]
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    g''4.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    ef''4
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    ef''16
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    e'4.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    e'16
+                    [
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    d'16.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    d'32
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    e'16.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    e'32
+                    ]
                 }
             }
             \context GrandStaff = "sub group 1"
@@ -310,10 +275,55 @@
                         >>
                         \oneVoice
                         s1 * 3/16
-                        s1 * 7/16
-                        s1 * 1/8
-                        s1 * 1/8
-                        s1 * 3/16
+                        \tweak text #tuplet-number::calc-fraction-text
+                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 15 14) (ly:make-duration 5 0))
+                        \times 28/30
+                        {
+                            \override Staff.Stem.direction = #UP
+                            r32.
+                            [
+                            bf''32
+                            \fff
+                            r32.
+                            fs'32
+                            r32.
+                            a32
+                            - \prallup
+                            r32.
+                            \change Staff = "piano 3 staff"
+                            f''32
+                            - \turn
+                            \change Staff = "piano 2 staff"
+                            r32.
+                            \change Staff = "piano 3 staff"
+                            bf'32
+                            \change Staff = "piano 2 staff"
+                            r32.
+                            \ottava 1
+                            <a''' bf''' b'''>32
+                            ]
+                            \ottava 0
+                        }
+                        \tweak text #tuplet-number::calc-fraction-text
+                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 6 7) (ly:make-duration 4 0))
+                        \times 7/6
+                        {
+                            r16
+                            [
+                            \change Staff = "piano 4 staff"
+                            cs'16
+                            - \pralldown
+                            \p
+                            \change Staff = "piano 2 staff"
+                            r16
+                            af16
+                            r16
+                            \change Staff = "piano 4 staff"
+                            c16
+                            ]
+                            \revert Staff.Stem.direction
+                        }
+                        \change Staff = "piano 2 staff"
                         s1 * 1/4
                         s1 * 3/4
                         s1 * 5/16
@@ -336,6 +346,7 @@
                         \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 81 88) (ly:make-duration 7 0))
                         \times 88/81
                         {
+                            \override Staff.Stem.direction = #UP
                             ef'''32...
                             [
                             r128.
@@ -392,12 +403,15 @@
                             r16
                             \change Staff = "piano 4 staff"
                             ef''8.
+                            \change Staff = "piano 3 staff"
                             r16
+                            \change Staff = "piano 4 staff"
                             ef''8.
                             - \turn
                             \change Staff = "piano 3 staff"
                             r16
                             ]
+                            \revert Staff.Stem.direction
                         }
                         s1 * 5/16
                         s1 * 7/16
@@ -456,8 +470,46 @@
                         s1 * 1/8
                         s1 * 1/8
                         s1 * 3/16
-                        s1 * 1/4
-                        s1 * 3/4
+                        <<
+                            \context Voice = "piano 4 voice temp"
+                            {
+                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 3 2) (ly:make-duration 3 0))
+                                \times 2/3
+                                {
+                                    \ottava 1
+                                    \voiceOne
+                                    cs'''8.
+                                    \tweak text #tuplet-number::calc-fraction-text
+                                    \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 8) (ly:make-duration 6 0))
+                                    \times 8/7
+                                    {
+                                        b''64
+                                        [
+                                        c'''64
+                                        af'''64
+                                        ef''''64
+                                        af'''64
+                                        ef'''64
+                                        e'''64
+                                        ]
+                                    }
+                                    f''16
+                                    ~
+                                }
+                                f''2.
+                            }
+                            \context Voice = "morpheme a outer voice 2"
+                            {
+                                \voiceTwo
+                                <bf'' f'''>4
+                                ~
+                                <bf'' f'''>4.
+                                <d'' b'''>4.
+                                ~
+                                \ottava 0
+                            }
+                        >>
+                        \oneVoice
                         \tweak text #tuplet-number::calc-fraction-text
                         \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 9 10) (ly:make-duration 5 0))
                         \times 30/27
@@ -477,13 +529,13 @@
                         {
                             r8
                             [
-                            ef''16
+                            ef'16
                             r8
-                            ef''16
+                            ef'16
                             r8
-                            ef''16
+                            ef'16
                             r8
-                            ef''16
+                            ef'16
                             ]
                         }
                     }
