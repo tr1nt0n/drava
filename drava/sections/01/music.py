@@ -17,7 +17,7 @@ score = library.drava_score(ts.first_motion_time_signatures[:13])
 
 # music commands
 
-# manual I
+# manual 1
 
 trinton.make_music(
     lambda _: trinton.select_target(_, (12,)),
@@ -54,7 +54,7 @@ trinton.make_music(
     voice=score["graces 1"],
 )
 
-# manual II
+# manual 2
 
 library.morpheme_b_rhythm(
     voice=score["piano 3 voice"],
@@ -77,7 +77,7 @@ trinton.make_music(
 )
 
 
-# manual III
+# manual 3
 
 library.morpheme_a_intermittent_rhythm(
     score=score,

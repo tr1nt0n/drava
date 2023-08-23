@@ -1118,40 +1118,41 @@ metronome_marks = {
 def metronome_markups(
     met_string, mod_string=None, string_only=False, parenthesis=False, padding=1
 ):
-    if mod_string is None:
-        if parenthesis is False:
-            mark = abjad.LilyPondLiteral(
-                [
-                    r"^ \markup {",
-                    rf"  \raise #{padding} \with-dimensions-from \null",
-                    r"  \override #'(font-size . 3.5)",
-                    r"  \concat {",
-                    f"      {met_string.string[8:]}",
-                    r"  }",
-                    r"}",
-                ],
-                site="after",
-            )
-            return mark
+    if parenthesis is False:
+        if string_only is False:
+            if mod_string is False:
+                mark = abjad.LilyPondLiteral(
+                    [
+                        r"^ \markup {",
+                        rf"  \raise #{padding} \with-dimensions-from \null",
+                        r"  \override #'(font-size . 3.5)",
+                        r"  \concat {",
+                        f"      {met_string.string[8:]}",
+                        r"  }",
+                        r"}",
+                    ],
+                    site="after",
+                )
+            else:
+                mark = abjad.LilyPondLiteral(
+                    [
+                        r"^ \markup {",
+                        rf"  \raise #{padding} \with-dimensions-from \null",
+                        r"  \override #'(font-size . 3.5)",
+                        r"  \concat {",
+                        f"      {met_string.string[8:]}",
+                        f"      [{abjad.lilypond(mod_string)[8:]}]",
+                        r"  }",
+                        r"}",
+                    ],
+                    site="after",
+                )
         else:
-            mark = f"\markup {{ \override #'(font-size . 3.5) \concat {{ ( {met_string.string[8:]} ) }} }}"
-            return mark
-
+            if mod_string is not None:
+                mark = f"\markup {{ \override #'(font-size . 3.5) \concat {{ {met_string.string[8:]} [{abjad.lilypond(mod_string)[8:]}] }} }}"
+            else:
+                mark = f"\markup {{ \override #'(font-size . 3.5) \concat {{ {met_string.string[8:]} }} }}"
     else:
-        if string_only is True:
-            mark = f"\markup {{ \override #'(font-size . 3.5) \concat {{ {met_string.string[8:]} [{abjad.lilypond(mod_string)[8:]}] }} }}"
-        else:
-            mark = abjad.LilyPondLiteral(
-                [
-                    r"^ \markup {",
-                    rf"  \raise #{padding} \with-dimensions-from \null",
-                    r"  \override #'(font-size . 3.5)",
-                    r"  \concat {",
-                    f"      {met_string.string[8:]}",
-                    f"      [{abjad.lilypond(mod_string)[8:]}]",
-                    r"  }",
-                    r"}",
-                ],
-                site="after",
-            )
-        return mark
+        mark = f"\markup {{ \override #'(font-size . 3.5) \concat {{ ( {met_string.string[8:]} ) }} }}"
+
+    return mark

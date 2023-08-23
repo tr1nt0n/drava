@@ -103,6 +103,7 @@ afterGraceFraction = #(cons 15 16)
 
         \override Glissando.thickness = #3
         \override Glissando.breakable = ##t
+        \override Glissando.style = #'zigzag
 
         \override Hairpin.to-barline = ##f
 

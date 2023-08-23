@@ -73,7 +73,7 @@ trinton.make_music(
     preprocessor=trinton.fuse_preprocessor((3,)),
 )
 
-# manual I
+# manual 1
 
 library.morpheme_c_intermittent_rhythm(
     score=score,
@@ -243,7 +243,7 @@ trinton.make_music(
     voice=score["piano 2 voice"],
 )
 
-# manual II
+# manual 2
 
 trinton.make_music(
     lambda _: trinton.select_target(_, (5, 10)),
@@ -304,7 +304,7 @@ trinton.make_music(
     ),
 )
 
-# manual III
+# manual 3
 
 library.morpheme_a_intermittent_rhythm(
     score=score,
