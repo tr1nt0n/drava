@@ -183,6 +183,7 @@ def c_ornaments(
         [0, 5, 7], 8, pitched=True, first=True
     ),
     rotation=0,
+    direction=None,
 ):
     def ornaments(argument):
         selections = selector(argument)
@@ -212,7 +213,7 @@ def c_ornaments(
         )
 
         for ornament, tie in zip(itertools.cycle(ornament_list), selections):
-            abjad.attach(abjad.Articulation(ornament), tie[0])
+            abjad.attach(abjad.Articulation(ornament), tie[0], direction=direction)
 
     return ornaments
 
