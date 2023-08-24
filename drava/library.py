@@ -259,12 +259,14 @@ def respell_tuplets(tuplets):
             rmakers.force_diminution(tuplet)
         if prolation.denominator == 5 and prolation.numerator % 3 == 0:
             rmakers.force_augmentation(tuplet)
-        if prolation.denominator == 7 and prolation.numerator % 2 == 0:
+        if prolation.denominator == 7 and prolation.numerator % 4 == 0:
             rmakers.force_augmentation(tuplet)
         if prolation.denominator == 7 and prolation.numerator % 5 == 0:
             rmakers.force_augmentation(tuplet)
         if prolation.denominator == 9 and prolation.numerator % 5 == 0:
             rmakers.force_augmentation(tuplet)
+        if prolation.denominator == 9 and prolation.numerator % 7 == 0:
+            rmakers.force_diminution(tuplet)
         if prolation.denominator % 9 == 0 and prolation.numerator % 11 == 0:
             rmakers.force_augmentation(tuplet)
             tuplet.denominator = 11
@@ -680,9 +682,8 @@ def morpheme_a_intermittent_rhythm(
     rotation=0,
     voice_number=1,
 ):
-    logistic_map = trinton.rotated_sequence(
-        [_ for _ in trinton.logistic_map(x=4, r=3.57, n=9) if _ > 2], rotation
-    )
+    logistic_map = [_ for _ in trinton.logistic_map(x=4, r=3.57, n=9) if _ > 2]
+    logistic_map = trinton.rotated_sequence(logistic_map, rotation % len(logistic_map))
 
     trinton.make_music(
         lambda _: trinton.select_target(_, measures),
@@ -833,15 +834,19 @@ def b_rhythm(
     return rhythm
 
 
-def b_rhythm_graces(counter=1):
+def b_rhythm_graces(selector=None, counter=1):
     def graces(argument):
         pties = abjad.select.logical_ties(argument, pitched=True, grace=False)
 
-        relevant_ties = [
-            _
-            for _ in pties
-            if abjad.get.duration(_, preprolated=True) < abjad.Duration(1, 4)
-        ]
+        if selector is not None:
+            relevant_ties = selector(pties)
+
+        else:
+            relevant_ties = [
+                _
+                for _ in pties
+                if abjad.get.duration(_, preprolated=True) < abjad.Duration(1, 4)
+            ]
 
         name_count = counter
 
