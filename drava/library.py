@@ -403,6 +403,27 @@ def pitch_morpheme_b(stage=1, selector=trinton.pleaves(), rotation=0):
 # rhythm
 
 
+def aftergrace(notes_string="c'16", selector=trinton.pleaves()):
+    def grace(argument):
+        selections = selector(argument)
+
+        ties = abjad.select.logical_ties(selections)
+
+        containers = [abjad.AfterGraceContainer(notes_string) for _ in ties]
+
+        for container in containers:
+            literal = abjad.LilyPondLiteral(
+                r'\once \override Flag.stroke-style = #"grace"',
+            )
+
+            abjad.attach(literal, container[0])
+
+        for container, tie in zip(containers, ties):
+            abjad.attach(container, tie[-1])
+
+    return grace
+
+
 def a_inner_voice_rhythm(stage, divisions, subdivisions, cycle_order=1):
     def rhythm(durations):
         tuplets = []

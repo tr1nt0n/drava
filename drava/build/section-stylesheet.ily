@@ -103,7 +103,7 @@ afterGraceFraction = #(cons 15 16)
 
         \override Glissando.thickness = #3
         \override Glissando.breakable = ##t
-        \override Glissando.style = #'zigzag
+        % \override Glissando.style = #'zigzag
 
         \override Hairpin.to-barline = ##f
 
@@ -111,7 +111,7 @@ afterGraceFraction = #(cons 15 16)
         \override MeasureSpanner.thickness = #1.5
         \override MeasureSpanner.font-size = 7
         \override MeasureSpanner.font-name = "Bodoni72 Book"
-        \override MeasureSpanner.padding = -5
+        \override MeasureSpanner.padding = -8
 
         \override Staff.thickness = #0.5
 
