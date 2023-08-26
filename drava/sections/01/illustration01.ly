@@ -341,13 +341,11 @@
                                 g'''8.
                                 ~
                                 \tweak text #tuplet-number::calc-fraction-text
-                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 12) (ly:make-duration 5 0))
-                                \times 12/7
+                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 6) (ly:make-duration 4 0))
+                                \times 6/7
                                 {
-                                    g'''16.
-                                    [
-                                    f'''8
-                                    ]
+                                    g'''8.
+                                    f'''4
                                     ~
                                 }
                                 f'''8.

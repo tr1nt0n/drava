@@ -263,6 +263,8 @@ def respell_tuplets(tuplets):
             rmakers.force_augmentation(tuplet)
         if prolation.denominator == 7 and prolation.numerator % 5 == 0:
             rmakers.force_augmentation(tuplet)
+        if prolation.denominator == 7 and prolation.numerator % 6 == 0:
+            rmakers.force_diminution(tuplet)
         if prolation.denominator == 9 and prolation.numerator % 5 == 0:
             rmakers.force_augmentation(tuplet)
         if prolation.denominator == 9 and prolation.numerator % 7 == 0:
@@ -1146,7 +1148,7 @@ def metronome_markups(
 ):
     if parenthesis is False:
         if string_only is False:
-            if mod_string is False:
+            if mod_string is None:
                 mark = abjad.LilyPondLiteral(
                     [
                         r"^ \markup {",

@@ -12,7 +12,7 @@
 afterGraceFraction = #(cons 15 16)
 
 \header {
-    title = \markup \override #'(font-name . "Devanagari MT") \center-column { \line \fontsize #17 { "द्रव | ३ गतय" } \fontsize #23 \with-color #white "."}
+    title = \markup \override #'(font-name . "Devanagari MT Regular") \center-column { \line \fontsize #17 { "द्रव | ३ गतय" } \fontsize #23 \with-color #white "."}
     subtitle = \markup \fontsize #5 \center-column { \line { \override #'(font-name . "Bodoni72 Book") { for } \override #'(font-name . "Bodoni72 Book Italic") { Organ Solo } } \fontsize #0.01 \with-color #white "."}
     composer = \markup \override #'(font-name . "Bodoni72") \fontsize #4 {"Trinton Hlynn (*2000)"}
 }
@@ -254,14 +254,14 @@ afterGraceFraction = #(cons 15 16)
     bottom-margin = 10\mm
     left-margin = 10\mm
     right-margin = 10\mm
-    top-margin = 10\mm
+    top-margin = 25\mm
 
     oddHeaderMarkup = \markup ""
     evenHeaderMarkup = \markup ""
     oddFooterMarkup = \markup
         \fill-line {
             \concat {
-                \override #'(font-name . "Devanagari MT")
+                \override #'(font-name . "Devanagari MT Regular")
                 "द्रव | ३ गतय"
                 \override #'(font-name . "Bodoni72 Book")
                 " - Trinton Hlynn"
@@ -281,7 +281,7 @@ afterGraceFraction = #(cons 15 16)
                         \fromproperty #'page:page-number-string
                 }
                 \concat {
-                    \override #'(font-name . "Devanagari MT")
+                    \override #'(font-name . "Devanagari MT Regular")
                     "द्रव | ३ गतय"
                     \override #'(font-name . "Bodoni72 Book")
                     " - Trinton Hlynn"
