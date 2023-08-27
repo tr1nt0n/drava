@@ -13,7 +13,19 @@ from drava import ts
 
 # score
 
-score = library.drava_score(time_signatures=[(1, 4), (19, 32), (1, 4)])
+time_signatures = [(1, 4), (19, 32), (1, 4)]
+
+for _ in ts.second_motion_time_signatures[0:4]:
+    time_signatures.append(_)
+
+time_signatures.insert(6, (7, 16))
+
+for index in [4, 7, 9]:
+    time_signatures.insert(index, (1, 4))
+
+time_signatures.append((1, 4))
+
+score = library.drava_score(time_signatures=time_signatures)
 
 # music commands
 
@@ -114,8 +126,24 @@ library.write_short_instrument_names(score=score)
 
 trinton.fermata_measures(
     score=score,
-    measures=[1, 3],
+    measures=[1, 3, 10, 12],
     fermata="ufermata",
+    font_size="30",
+    clef_whitespace=False,
+)
+
+trinton.fermata_measures(
+    score=score,
+    measures=[5],
+    fermata="ulongfermata",
+    font_size="30",
+    clef_whitespace=False,
+)
+
+trinton.fermata_measures(
+    score=score,
+    measures=[8],
+    fermata="uverylongfermata",
     font_size="30",
     clef_whitespace=False,
 )
@@ -135,7 +163,70 @@ trinton.make_music(
             library.metronome_markups(
                 met_string=library.metronome_marks["120"],
                 mod_string=library.metronome_marks["3:2(8)=8"],
-            )
+            ),
+            abjad.BarLine("||", site="absolute_after"),
+        ],
+        selector=trinton.select_leaves_by_index([0]),
+    ),
+    voice=score["Global Context"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (4, 5)),
+    trinton.attachment_command(
+        attachments=[
+            abjad.LilyPondLiteral(
+                r'\tweak text "×3" \startMeasureSpanner', "absolute_before"
+            ),
+            abjad.BarLine(".|:", site="before"),
+            abjad.LilyPondLiteral(
+                r"\once \override Score.BarLine.transparent = ##f", "before"
+            ),
+        ],
+        selector=trinton.select_leaves_by_index([0]),
+    ),
+    trinton.attachment_command(
+        attachments=[
+            abjad.BarLine(":|."),
+            abjad.LilyPondLiteral(
+                r"\once \override Score.BarLine.transparent = ##f", "absolute_after"
+            ),
+            abjad.LilyPondLiteral(r"\stopMeasureSpanner", "absolute_after"),
+            abjad.LilyPondLiteral(
+                r"""\set Score.repeatCommands = #'((volta "1 - 2"))""",
+                site="before",
+            ),
+        ],
+        selector=trinton.select_leaves_by_index([-1]),
+    ),
+    voice=score["Global Context"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (6,)),
+    trinton.attachment_command(
+        attachments=[
+            abjad.LilyPondLiteral(
+                r"""\set Score.repeatCommands = #'((volta "3"))""",
+                site="before",
+            ),
+            abjad.LilyPondLiteral(
+                r"""\set Score.repeatCommands = #'((volta #f))""",
+                site="absolute_after",
+            ),
+        ],
+        selector=trinton.select_leaves_by_index([0]),
+    ),
+    voice=score["Global Context"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (9,)),
+    trinton.attachment_command(
+        attachments=[
+            library.metronome_markups(
+                met_string=library.metronome_marks["48"],
+            ),
         ],
         selector=trinton.select_leaves_by_index([0]),
     ),

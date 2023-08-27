@@ -19,6 +19,61 @@
                   [\abjad-metric-modulation-tuplet-lhs #3 #0 #2 #3 #3 #0 #'(1 . 1)]
               }
             }
+            \bar "||"
+            \once \override Score.BarLine.transparent = ##f
+            \once \override MultiMeasureRest.transparent = ##t
+            \once \override Score.TimeSignature.stencil = ##f
+            \time 1/4
+            R1 * 1/4
+            _ \markup \center-column { \abs-fontsize #30 \musicglyph "scripts.ufermata" }
+            \once \override Score.BarLine.transparent = ##f
+            \tweak text "×3" \startMeasureSpanner
+            \bar ".|:"
+            \once \override Score.BarLine.transparent = ##f
+            \time 5/16
+            s1 * 5/16
+            \once \override Score.BarLine.transparent = ##f
+            \once \override MultiMeasureRest.transparent = ##t
+            \once \override Score.TimeSignature.stencil = ##f
+            \set Score.repeatCommands = #'((volta "1 - 2"))
+            \time 1/4
+            R1 * 1/4
+            _ \markup \center-column { \abs-fontsize #30 \musicglyph "scripts.ulongfermata" }
+            \bar ":|."
+            \once \override Score.BarLine.transparent = ##f
+            \once \override Score.BarLine.transparent = ##f
+            \stopMeasureSpanner
+            \set Score.repeatCommands = #'((volta "3"))
+            \time 3/8
+            s1 * 3/8
+            \set Score.repeatCommands = #'((volta #f))
+            \time 2/8
+            s1 * 1/4
+            \once \override Score.BarLine.transparent = ##f
+            \once \override MultiMeasureRest.transparent = ##t
+            \once \override Score.TimeSignature.stencil = ##f
+            \time 1/4
+            R1 * 1/4
+            _ \markup \center-column { \abs-fontsize #30 \musicglyph "scripts.uverylongfermata" }
+            \once \override Score.BarLine.transparent = ##f
+            \time 7/16
+            s1 * 7/16
+            ^ \markup {
+              \raise #1 \with-dimensions-from \null
+              \override #'(font-size . 3.5)
+              \concat {
+                  \abjad-metronome-mark-markup #3 #0 #1 #"48"
+              }
+            }
+            \once \override Score.BarLine.transparent = ##f
+            \once \override MultiMeasureRest.transparent = ##t
+            \once \override Score.TimeSignature.stencil = ##f
+            \time 1/4
+            R1 * 1/4
+            _ \markup \center-column { \abs-fontsize #30 \musicglyph "scripts.ufermata" }
+            \once \override Score.BarLine.transparent = ##f
+            \time 3/16
+            s1 * 3/16
             \once \override Score.BarLine.transparent = ##f
             \once \override MultiMeasureRest.transparent = ##t
             \once \override Score.TimeSignature.stencil = ##f
@@ -69,6 +124,104 @@
                     \stopStaff \startStaff
                       %! +SCORE
                     \stopStaff \startStaff
+                      %! +SCORE
+                    \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 5/16
+                      %! +SCORE
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 1/4
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 3/8
+                      %! +SCORE
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 1/4
+                      %! +SCORE
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 1/4
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 7/16
+                      %! +SCORE
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 1/4
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                      %! +SCORE
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 3/16
+                      %! +SCORE
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \once \override Staff.BarLine.transparent = ##f
+                    \once \revert Staff.StaffSymbol.line-positions
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                      %! +SCORE
+                    \once \override MultiMeasureRest.transparent = ##t
+                    R1 * 1/4
+                    \stopStaff \startStaff
+                      %! +SCORE
+                    \stopStaff \startStaff
                 }
             }
             \context GrandStaff = "sub group 1"
@@ -89,6 +242,23 @@
                         s1 * 1/4
                         ^ \pp
                         \stopStaff \startStaff
+                        s1 * 5/16
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
+                        s1 * 3/8
+                        s1 * 1/4
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
+                        s1 * 7/16
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
+                        s1 * 3/16
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
                     }
                 }
                 \context Staff = "piano 3 staff"
@@ -101,6 +271,23 @@
                         s1 * 1/4
                         \stopStaff \startStaff
                         s1 * 19/32
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
+                        s1 * 5/16
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
+                        s1 * 3/8
+                        s1 * 1/4
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
+                        s1 * 7/16
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
+                        s1 * 3/16
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
@@ -150,6 +337,23 @@
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
+                        s1 * 5/16
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
+                        s1 * 3/8
+                        s1 * 1/4
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
+                        s1 * 7/16
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
+                        s1 * 3/16
+                        \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                        s1 * 1/4
+                        \stopStaff \startStaff
                     }
                 }
             >>
@@ -179,6 +383,23 @@
                     r16
                     r16.
                     r16
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                    s1 * 1/4
+                    \stopStaff \startStaff
+                    s1 * 5/16
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                    s1 * 1/4
+                    \stopStaff \startStaff
+                    s1 * 3/8
+                    s1 * 1/4
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                    s1 * 1/4
+                    \stopStaff \startStaff
+                    s1 * 7/16
+                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
+                    s1 * 1/4
+                    \stopStaff \startStaff
+                    s1 * 3/16
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                     s1 * 1/4
                     \stopStaff \startStaff
