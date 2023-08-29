@@ -408,6 +408,28 @@ def return_morpheme_a_pitch_lists(rotation=0):
     return (outer_voices, inner_voice)
 
 
+def return_morpheme_b_pitch_lists(rotation=0):
+    moments, labels = partition_moments()
+
+    morpheme_b_moments = []
+
+    for moment in moments:
+        if len(moment) == 5:
+            morpheme_b_moments.append(moment)
+
+    morpheme_b_moments = trinton.rotated_sequence(
+        morpheme_b_moments, rotation % len(morpheme_b_moments)
+    )
+
+    pitch_list = []
+
+    for segment in morpheme_b_moments:
+        for pitch in segment:
+            pitch_list.append(pitch.number)
+
+    return pitch_list
+
+
 def return_morpheme_c_pitch_list(rotation=0):
     moments, labels = partition_moments()
 

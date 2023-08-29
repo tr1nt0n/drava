@@ -124,48 +124,51 @@
                     \stopStaff \startStaff
                       %! +SCORE
                     \stopStaff \startStaff
+                    b'4
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    g'32.
+                    [
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    g'64
+                    ]
                       %! +SCORE
                     \once \override Staff.BarLine.transparent = ##f
                     \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                    \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 5/16
-                      %! +SCORE
-                    \stopStaff \startStaff
-                      %! +SCORE
-                    \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                    \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 1/4
-                    \stopStaff \startStaff
-                      %! +SCORE
-                    \stopStaff \startStaff
-                      %! +SCORE
-                    \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
-                      %! +SCORE
-                    \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
-                      %! +SCORE
-                    \once \override MultiMeasureRest.transparent = ##t
-                    R1 * 3/8
-                      %! +SCORE
-                    \stopStaff \startStaff
-                      %! +SCORE
-                    \once \override Staff.BarLine.transparent = ##f
-                    \once \revert Staff.StaffSymbol.line-positions
                       %! +SCORE
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                       %! +SCORE
                     \once \override MultiMeasureRest.transparent = ##t
                     R1 * 1/4
+                    \stopStaff \startStaff
                       %! +SCORE
                     \stopStaff \startStaff
+                    g'8
+                    [
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    e'8
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    e'16
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    b'32.
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    e'64
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    e'8
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    c''16..
+                    - \abjad-zero-padding-glissando
+                    \glissando
+                    f'64
+                    ]
                       %! +SCORE
                     \once \override Staff.BarLine.transparent = ##f
                     \once \revert Staff.StaffSymbol.line-positions
@@ -251,7 +254,10 @@
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
-                        s1 * 7/16
+                        \ottava 1
+                        <f' a' c'' d'' fs'' g'' cs''' ds''' b'''>4..
+                            _ #(make-dynamic-script (markup #:whiteout #:italic "fffff"))
+                        \ottava 0
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
@@ -287,7 +293,35 @@
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
-                        s1 * 3/16
+                        \tweak text #tuplet-number::calc-fraction-text
+                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 3) (ly:make-duration 5 0))
+                        \times 3/7
+                        {
+                            \ottava 1
+                            df'''32
+                            \pp
+                            [
+                            ef'''32
+                            df'''32
+                            ef'''32
+                            df'''32
+                            ef'''32
+                            df'''32
+                            ]
+                        }
+                        \tweak text #tuplet-number::calc-fraction-text
+                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 5 6) (ly:make-duration 6 0))
+                        \times 6/5
+                        {
+                            bf''64
+                            [
+                            d'''64
+                            cs'''64
+                            ef'''64
+                            f'''64
+                            ]
+                            \ottava 0
+                        }
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
@@ -337,12 +371,97 @@
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
-                        s1 * 5/16
+                        <<
+                            \context Voice = "piano 4 voice temp"
+                            {
+                                \voiceOne
+                                r32.
+                                [
+                                \ottava 2
+                                ef''''64
+                                _ \pp
+                                r32.
+                                ef''''64
+                                r32.
+                                ef''''64
+                                r32.
+                                df''''64
+                                r32.
+                                ef''''64
+                                ]
+                            }
+                            \context Voice = "morpheme c lower voice 1"
+                            {
+                                \tweak text #tuplet-number::calc-fraction-text
+                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 6 5) (ly:make-duration 4 0))
+                                \times 15/18
+                                {
+                                    \voiceTwo
+                                    r16
+                                    [
+                                    a'''16
+                                    r16
+                                    fs'''16
+                                    r16
+                                    c'''16
+                                    ]
+                                    \ottava 0
+                                }
+                            }
+                        >>
+                        \oneVoice
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
-                        s1 * 3/8
-                        s1 * 1/4
+                        <<
+                            \context Voice = "piano 4 voice temp"
+                            {
+                                \tweak text #tuplet-number::calc-fraction-text
+                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 9 10) (ly:make-duration 4 0))
+                                \times 30/27
+                                {
+                                    \voiceOne
+                                    r8
+                                    [
+                                    df''''16
+                                    r8
+                                    ef''''16
+                                    r8
+                                    ef''''16
+                                    ]
+                                }
+                            }
+                            \context Voice = "morpheme c lower voice 2"
+                            {
+                                \tweak text #tuplet-number::calc-fraction-text
+                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 21 20) (ly:make-duration 5 0))
+                                \times 60/63
+                                {
+                                    \voiceTwo
+                                    r16
+                                    [
+                                    \ottava 2
+                                    bf''32
+                                    r16
+                                    f'''32
+                                    r16
+                                    e'''32
+                                    r16
+                                    ef'''32
+                                    r16
+                                    f'''32
+                                    r16
+                                    <ef'' a'' bf''>32
+                                    - \turn
+                                    r16
+                                    c''32
+                                    - \mordent
+                                    ]
+                                    \ottava 0
+                                }
+                            }
+                        >>
+                        \oneVoice
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
@@ -395,7 +514,10 @@
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                     s1 * 1/4
                     \stopStaff \startStaff
-                    s1 * 7/16
+                    \ottava -1
+                    <e,, gs, as,>4..
+                        _ #(make-dynamic-script (markup #:whiteout #:italic "fffff"))
+                    \ottava 0
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                     s1 * 1/4
                     \stopStaff \startStaff

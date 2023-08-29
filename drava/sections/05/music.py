@@ -27,7 +27,63 @@ time_signatures.append((1, 4))
 
 score = library.drava_score(time_signatures=time_signatures)
 
+# fermate
+
+trinton.fermata_measures(
+    score=score,
+    measures=[1, 3, 10, 12],
+    fermata="ufermata",
+    font_size="30",
+    clef_whitespace=False,
+)
+
+trinton.fermata_measures(
+    score=score,
+    measures=[5],
+    fermata="ulongfermata",
+    font_size="30",
+    clef_whitespace=False,
+)
+
+trinton.fermata_measures(
+    score=score,
+    measures=[8],
+    fermata="uverylongfermata",
+    font_size="30",
+    clef_whitespace=False,
+)
+
 # music commands
+
+# tempo
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (4,)),
+    evans.RhythmHandler(evans.talea([16, 3, 1], 64)),
+    evans.PitchHandler([11, 7, 7]),
+    trinton.attachment_command(
+        attachments=[
+            abjad.Glissando(zero_padding=True),
+        ],
+        selector=trinton.pleaves(exclude=[-1]),
+    ),
+    abjad.beam,
+    voice=score["piano 1 voice"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (6, 7)),
+    evans.RhythmHandler(evans.talea([8, 8, 4, 3, 1, 8, 7, 1], 64)),
+    evans.PitchHandler([7, 4, 4, 11, 4, 4, 12, 5]),
+    trinton.attachment_command(
+        attachments=[
+            abjad.Glissando(zero_padding=True),
+        ],
+        selector=trinton.pleaves(exclude=[-1]),
+    ),
+    abjad.beam,
+    voice=score["piano 1 voice"],
+)
 
 # manual 1
 
@@ -39,6 +95,54 @@ trinton.make_music(
         direction=abjad.UP,
     ),
     voice=score["piano 2 voice"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (9,)),
+    evans.RhythmHandler(rmakers.note),
+    evans.PitchHandler(
+        [["f'", "a'", "fs''", "d''", "c''", "g''", "cs'''", "ds'''", "b'''"]],
+    ),
+    trinton.ottava_command(selector=trinton.select_leaves_by_index([0, 0])),
+    trinton.attachment_command(
+        attachments=[trinton.make_custom_dynamic("fffff")],
+        selector=trinton.select_leaves_by_index([0], pitched=True),
+    ),
+    voice=score["piano 2 voice"],
+)
+
+# manual 2
+
+library.morpheme_b_rhythm(
+    voice=score["piano 3 voice"],
+    measures=(11,),
+    fuse_groups=(1,),
+    stage=3,
+    rotation=8,
+    manual="single",
+    rests=False,
+    counter=1,
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (11,)),
+    trinton.pitch_with_selector_command(
+        pitch_list=["df'", "ef'"], selector=trinton.select_tuplets_by_index([0])
+    ),
+    trinton.pitch_with_selector_command(
+        pitch_list=pitch.return_morpheme_b_pitch_lists(rotation=11),
+        selector=trinton.select_tuplets_by_index([-1]),
+    ),
+    library.double_octave_up(),
+    library.octave_down(selector=trinton.select_leaves_by_index([7])),
+    trinton.ottava_command(
+        selector=trinton.select_leaves_by_index([0, -1], pitched=True)
+    ),
+    trinton.attachment_command(
+        attachments=[abjad.Dynamic("pp")],
+        selector=trinton.select_leaves_by_index([0], pitched=True),
+    ),
+    voice=score["piano 3 voice"],
 )
 
 # manual 3
@@ -77,7 +181,6 @@ trinton.make_music(
     library.double_octave_up(trinton.select_leaves_by_index([-1, -2, -3])),
     library.double_octave_up(trinton.select_leaves_by_index([-1, -2, -3])),
     library.octave_up(trinton.select_leaves_by_index([-1, -2])),
-    # library.octave_up(trinton.select_leaves_by_index([-1])),
     library.change_staff(
         staves=["piano 2", "piano 3", "piano 4"],
         selector=trinton.select_leaves_by_index([0, 9, 14]),
@@ -100,12 +203,83 @@ trinton.make_music(
     voice=score["piano 4 voice"],
 )
 
-# pedal
+library.morpheme_c_intermittent_rhythm(
+    score=score,
+    voice_name="piano 4 voice",
+    measures=(4,),
+    fuse_groups=(1,),
+    stage=(1, 1),
+    rotation=(6, 6),
+    voice_number=1,
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (4,)),
+    evans.PitchHandler(
+        [
+            "ef''''",
+            "ef''''",
+            "ef''''",
+            "df''''",
+        ]
+    ),
+    trinton.ottava_command(
+        octave=2, selector=trinton.select_leaves_by_index([0, -1], pitched=True)
+    ),
+    trinton.attachment_command(
+        attachments=[abjad.Dynamic("pp")],
+        selector=trinton.select_leaves_by_index([0], pitched=True),
+        direction=abjad.DOWN,
+    ),
+    voice=score["piano 4 voice"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (4,)),
+    evans.PitchHandler(pitch.return_morpheme_c_pitch_list(rotation=30)),
+    library.double_octave_up(),
+    # library.octave_up(selector=trinton.select_leaves_by_index([1], pitched=True)),
+    voice=score["morpheme c lower voice 1"],
+)
+
+library.morpheme_c_intermittent_rhythm(
+    score=score,
+    voice_name="piano 4 voice",
+    measures=(6, 7),
+    fuse_groups=(2,),
+    stage=(1, 1),
+    rotation=(7, 8),
+    voice_number=2,
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (6, 7)),
+    evans.PitchHandler(["df''''", "ef''''", "ef''''"]),
+    voice=score["piano 4 voice"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (6, 7)),
+    evans.PitchHandler(pitch.return_morpheme_c_pitch_list(rotation=33)),
+    library.double_octave_up(),
+    library.octave_down(
+        selector=trinton.select_leaves_by_index([0, -2, -1], pitched=True)
+    ),
+    trinton.ottava_command(
+        octave=2, selector=trinton.select_leaves_by_index([0, -1], pitched=True)
+    ),
+    trinton.linear_attachment_command(
+        attachments=[abjad.Articulation("turn"), abjad.Articulation("mordent")],
+        selector=trinton.select_leaves_by_index([-2, -1], pitched=True),
+    ),
+    voice=score["morpheme c lower voice 2"],
+)
+
+# pedals
 
 trinton.make_music(
     lambda _: trinton.select_target(_, (2,)),
     evans.RhythmHandler(evans.talea([9, -3, -2, -3, -2], 32)),
-    # trinton.rewrite_meter_command(),
     evans.PitchHandler([["c,", "df,"]]),
     trinton.attachment_command(
         attachments=[
@@ -118,35 +292,27 @@ trinton.make_music(
     voice=score["piano 5 voice"],
 )
 
+trinton.make_music(
+    lambda _: trinton.select_target(_, (9,)),
+    evans.RhythmHandler(rmakers.note),
+    evans.PitchHandler(
+        [
+            ["e,,", "gs,", "as,"],
+        ],
+    ),
+    trinton.ottava_command(octave=-1, selector=trinton.select_leaves_by_index([0, 0])),
+    trinton.attachment_command(
+        attachments=[trinton.make_custom_dynamic("fffff")],
+        selector=trinton.select_leaves_by_index([0], pitched=True),
+    ),
+    voice=score["piano 5 voice"],
+)
+
 # globals
 
 library.write_instrument_names(score=score)
 
 library.write_short_instrument_names(score=score)
-
-trinton.fermata_measures(
-    score=score,
-    measures=[1, 3, 10, 12],
-    fermata="ufermata",
-    font_size="30",
-    clef_whitespace=False,
-)
-
-trinton.fermata_measures(
-    score=score,
-    measures=[5],
-    fermata="ulongfermata",
-    font_size="30",
-    clef_whitespace=False,
-)
-
-trinton.fermata_measures(
-    score=score,
-    measures=[8],
-    fermata="uverylongfermata",
-    font_size="30",
-    clef_whitespace=False,
-)
 
 library.reset_line_positions(score=score, voice_names=["piano 1 voice"])
 

@@ -53,7 +53,7 @@ trinton.make_music(
     trinton.call_rmaker(
         rmaker=rmakers.force_augmentation, selector=trinton.select_tuplets_by_index([0])
     ),
-    evans.PitchHandler(pitch.return_morpheme_c_pitch_list(rotation=24)),
+    evans.PitchHandler(pitch.return_morpheme_c_pitch_list(rotation=30)),
     library.octave_down(selector=trinton.select_leaves_by_index([0], pitched=True)),
     library.octave_up(selector=trinton.select_leaves_by_index([4, 5], pitched=True)),
     library.c_ornaments(
