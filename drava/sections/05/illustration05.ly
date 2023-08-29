@@ -311,28 +311,28 @@
                         \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 3) (ly:make-duration 5 0))
                         \times 3/7
                         {
-                            \ottava 1
-                            df'''32
+                            \ottava -1
+                            df32
                             \pp
                             [
-                            ef'''32
-                            df'''32
-                            ef'''32
-                            df'''32
-                            ef'''32
-                            df'''32
+                            ef32
+                            df32
+                            ef32
+                            df32
+                            ef32
+                            df32
                             ]
                         }
                         \tweak text #tuplet-number::calc-fraction-text
                         \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 5 6) (ly:make-duration 6 0))
                         \times 6/5
                         {
-                            bf''64
+                            bf,64
                             [
-                            d'''64
-                            cs'''64
-                            ef'''64
-                            f'''64
+                            d64
+                            cs64
+                            ef64
+                            f64
                             ]
                             \ottava 0
                         }

@@ -133,10 +133,10 @@ trinton.make_music(
         pitch_list=pitch.return_morpheme_b_pitch_lists(rotation=11),
         selector=trinton.select_tuplets_by_index([-1]),
     ),
-    library.double_octave_up(),
+    library.octave_down(),
     library.octave_down(selector=trinton.select_leaves_by_index([7])),
     trinton.ottava_command(
-        selector=trinton.select_leaves_by_index([0, -1], pitched=True)
+        octave=-1, selector=trinton.select_leaves_by_index([0, -1], pitched=True)
     ),
     trinton.attachment_command(
         attachments=[abjad.Dynamic("pp")],
