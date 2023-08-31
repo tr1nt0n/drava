@@ -142,6 +142,10 @@ trinton.make_music(
         attachments=[abjad.Dynamic("pp")],
         selector=trinton.select_leaves_by_index([0], pitched=True),
     ),
+    trinton.linear_attachment_command(
+        attachments=itertools.cycle([abjad.StartSlur(), abjad.StopSlur()]),
+        selector=trinton.select_leaves_by_index([0, 6, 7, -1]),
+    ),
     voice=score["piano 3 voice"],
 )
 
@@ -153,7 +157,7 @@ trinton.make_music(
     evans.PitchHandler(
         [2, 1, 7, 0, 3, 11, 4, 8, 10, 5, 9, 6, 8, 10, 5, 9, 6, 0, 3, 11, 4],
     ),
-    library.octave_down(),
+    library.double_octave_down(),
     library.octave_up(trinton.select_leaves_by_index([1, 2, 3, 4, 5])),
     library.double_octave_up(trinton.select_leaves_by_index([6, 7, 8, 9, 10])),
     library.double_octave_up(
@@ -193,12 +197,17 @@ trinton.make_music(
         selector=trinton.select_leaves_by_index([0, -1]),
     ),
     abjad.beam,
-    trinton.ottava_command(selector=trinton.select_leaves_by_index([9, 13])),
-    trinton.ottava_command(octave=2, selector=trinton.select_leaves_by_index([14, -1])),
+    trinton.ottava_command(octave=-1, selector=trinton.select_leaves_by_index([0, 8])),
+    trinton.ottava_command(selector=trinton.select_leaves_by_index([14, -1])),
     trinton.linear_attachment_command(
         attachments=[abjad.Dynamic("mf"), abjad.Dynamic("p")],
         selector=trinton.select_leaves_by_index([9, 14]),
         direction=abjad.UP,
+    ),
+    trinton.linear_attachment_command(
+        attachments=[abjad.StartSlur(), abjad.StopSlur()],
+        selector=trinton.select_leaves_by_index([0, -1], pitched=True),
+        direction=abjad.DOWN,
     ),
     voice=score["piano 4 voice"],
 )

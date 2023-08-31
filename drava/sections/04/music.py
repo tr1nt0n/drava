@@ -323,6 +323,11 @@ trinton.make_music(
     evans.PitchHandler(pitch.return_morpheme_a_pitch_lists(rotation=8)[1]),
     library.octave_up(),
     library.octave_up(selector=trinton.select_leaves_by_index([0])),
+    trinton.linear_attachment_command(
+        attachments=[abjad.StartSlur(), abjad.StopSlur()],
+        selector=trinton.select_leaves_by_index([1, 5]),
+        # direction=abjad.DOWN
+    ),
     voice=score["piano 4 voice"],
 )
 

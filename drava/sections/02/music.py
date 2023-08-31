@@ -335,25 +335,6 @@ trinton.make_music(
     voice=score["morpheme a outer voice 1"],
 )
 
-trinton.make_music(
-    lambda _: trinton.select_target(_, (11, 14)),
-    evans.RhythmHandler(library.c_rhythm(register="upper", rotation=3, stage=1)),
-    evans.PitchHandler(["ef''"]),
-    trinton.pitch_with_selector_command(
-        pitch_list=["df''"],
-        selector=trinton.patterned_tie_index_selector([2, 10], 18, pitched=True),
-    ),
-    library.octave_down(selector=trinton.select_tuplets_by_index([-1])),
-    trinton.notehead_bracket_command(),
-    voice=score["piano 4 voice"],
-    preprocessor=trinton.fuse_preprocessor(
-        (
-            1,
-            3,
-        )
-    ),
-)
-
 library.morpheme_a_intermittent_rhythm(
     score=score,
     voice_name="piano 4 voice",
@@ -372,6 +353,10 @@ trinton.make_music(
     library.double_octave_up(selector=trinton.select_leaves_by_index([4])),
     library.octave_up(selector=trinton.select_leaves_by_index([3, 6, 7])),
     trinton.ottava_command(selector=trinton.select_leaves_by_index([0, -1])),
+    trinton.linear_attachment_command(
+        attachments=[abjad.StartSlur(), abjad.StopSlur()],
+        selector=trinton.select_leaves_by_index([1, 7]),
+    ),
     voice=score["piano 4 voice"],
 )
 
@@ -380,6 +365,25 @@ trinton.make_music(
     evans.PitchHandler(pitch.return_morpheme_a_pitch_lists(rotation=3)[0]),
     library.double_octave_up(),
     voice=score["morpheme a outer voice 2"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (11, 14)),
+    evans.RhythmHandler(library.c_rhythm(register="upper", rotation=3, stage=1)),
+    evans.PitchHandler(["ef''"]),
+    trinton.pitch_with_selector_command(
+        pitch_list=["df''"],
+        selector=trinton.patterned_tie_index_selector([2, 10], 18, pitched=True),
+    ),
+    library.octave_down(selector=trinton.select_tuplets_by_index([-1])),
+    trinton.notehead_bracket_command(),
+    voice=score["piano 4 voice"],
+    preprocessor=trinton.fuse_preprocessor(
+        (
+            1,
+            3,
+        )
+    ),
 )
 
 # pedal

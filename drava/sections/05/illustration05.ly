@@ -315,12 +315,14 @@
                             df32
                             \pp
                             [
+                            (
                             ef32
                             df32
                             ef32
                             df32
                             ef32
                             df32
+                            )
                             ]
                         }
                         \tweak text #tuplet-number::calc-fraction-text
@@ -329,10 +331,12 @@
                         {
                             bf,64
                             [
+                            (
                             d64
                             cs64
                             ef64
                             f64
+                            )
                             ]
                             \ottava 0
                         }
@@ -351,34 +355,36 @@
                         s1 * 1/4
                         \stopStaff \startStaff
                         \change Staff = "piano 2 staff"
+                        \ottava -1
                         \override Stem.direction = #DOWN
-                        d32
+                        d,32
                         [
-                        cs'32
-                        g'32
-                        c'32
-                        ef'32
-                        b'32
-                        e''32
+                        _ (
+                        cs32
+                        g32
+                        c32
+                        ef32
+                        b32
+                        e'32
+                        af'32
+                        bf'32
+                        \ottava 0
+                        \change Staff = "piano 3 staff"
+                        f'32
+                        ^ \mf
+                        a'32
+                        fs''32
                         af''32
                         bf''32
-                        \change Staff = "piano 3 staff"
+                        \change Staff = "piano 4 staff"
                         \ottava 1
                         f''32
-                        ^ \mf
+                        ^ \p
                         a''32
                         fs'''32
-                        af'''32
-                        bf'''32
-                        \ottava 0
-                        \change Staff = "piano 4 staff"
-                        \ottava 2
-                        f'''32
-                        ^ \p
-                        a'''32
-                        fs''''32
-                        c'''''32
-                        ef'''''32
+                        c''''32
+                        ef''''32
+                        )
                         ]
                         \ottava 0
                         \revert Stem.direction
@@ -494,7 +500,7 @@
             {
                 \context Voice = "piano 5 voice"
                 {
-                    \set Staff.instrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Pedal }
+                    \set Staff.instrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Pedals }
                     \set Staff.shortInstrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Ped. }
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                     s1 * 1/4

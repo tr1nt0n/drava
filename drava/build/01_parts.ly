@@ -288,8 +288,10 @@
                         {
                             ef'16
                             \pp
+                            (
                             \pitchedTrill
                             df'4
+                            )
                             \startTrillSpan ef'
                             r8.
                             \stopTrillSpan

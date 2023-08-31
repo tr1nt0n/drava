@@ -186,19 +186,19 @@
                             \change Staff = "piano 4 staff"
                             \once \override Beam.damping = #2
                             \override Stem.direction = #UP
-                            af64.
+                            a64.
                             [
-                            c'64
-                            a'64.
+                            fs'64
+                            c'64.
                             ^ \downmordent
                             \change Staff = "piano 2 staff"
                             r64
-                            b'64.
+                            bf'64.
                             r64
-                            fs''64.
+                            f''64.
                             ^ \prall
                             r64
-                            <ef'' fs'' a''>64.
+                            <cs'' e'' a''>64.
                             ^ \turn
                             r64
                             ]
@@ -310,11 +310,13 @@
                         {
                             ef''8
                             \mp
+                            (
                             \pitchedTrill
                             df''4
                             ~
                             \startTrillSpan ef''
                             df''16
+                            )
                             r4
                             \stopTrillSpan
                             r16
@@ -455,7 +457,7 @@
             {
                 \context Voice = "piano 5 voice"
                 {
-                    \set Staff.instrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Pedal }
+                    \set Staff.instrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Pedals }
                     \set Staff.shortInstrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Ped. }
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                     s1 * 1/4

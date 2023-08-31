@@ -825,10 +825,12 @@
                                     {
                                         af''8
                                         [
+                                        (
                                         ef'8
                                         e'8
                                         f'8
                                         f''8
+                                        )
                                         ]
                                     }
                                 }
@@ -856,7 +858,7 @@
             {
                 \context Voice = "piano 5 voice"
                 {
-                    \set Staff.instrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Pedal }
+                    \set Staff.instrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Pedals }
                     \set Staff.shortInstrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Ped. }
                     \clef "bass"
                     \afterGrace

@@ -485,12 +485,14 @@
                                     {
                                         b''64
                                         [
+                                        (
                                         c'''64
                                         af'''64
                                         ef''''64
                                         af'''64
                                         ef'''64
                                         e'''64
+                                        )
                                         ]
                                     }
                                     f''16
@@ -546,7 +548,7 @@
                 \context Voice = "piano 5 voice"
                 {
                     \ottava -1
-                    \set Staff.instrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Pedal }
+                    \set Staff.instrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Pedals }
                     \set Staff.shortInstrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Book Italic") { Ped. }
                     \clef "bass"
                     <df,, ef,,>8
