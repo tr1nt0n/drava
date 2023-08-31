@@ -143,7 +143,7 @@ trinton.make_music(
     voice=score["morpheme a outer voice 2"],
 )
 
-# pedal
+# pedals
 
 trinton.make_music(
     lambda _: trinton.select_target(_, (1,)),

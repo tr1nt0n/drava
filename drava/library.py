@@ -141,6 +141,35 @@ def write_short_instrument_names(score):
 # notation tools
 
 
+def imbricate(
+    pitches,
+    name,
+    selector=trinton.pleaves(),
+):
+    def imbricate(argument):
+        selections = selector(argument)
+
+        evans.imbricate(
+            selections=selections,
+            pitches=pitches,
+            name=name,
+            direction=abjad.UP,
+            articulation=None,
+            beam=False,
+            secondary=True,
+            allow_unused_pitches=False,
+            by_pitch_class=False,
+            by_index=False,
+            cyclic_period=None,
+            hocket=False,
+            truncate_ties=False,
+            direct_attachments=False,
+            note_head="\lowest",
+        )
+
+    return imbricate
+
+
 def reset_line_positions(score, voice_names):
     voices = [score[_] for _ in voice_names]
 
