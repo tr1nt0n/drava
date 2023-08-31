@@ -81,7 +81,7 @@ all_instrument_names = [
     abjad.InstrumentName(
         context="Staff",
         markup=abjad.Markup(
-            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Book Italic") { Pedal }'
+            '\markup \\fontsize #4 \override #\'(font-name . "Bodoni72 Book Italic") { Pedals }'
         ),
     ),
 ]
