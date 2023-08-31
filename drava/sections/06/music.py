@@ -147,41 +147,52 @@ trinton.make_music(
 )
 
 trinton.make_music(
-    lambda _: trinton.select_target(_, (6,)),
-    trinton.attachment_command(
-        attachments=[
+    lambda _: trinton.select_target(_, (5, 7)),
+    trinton.spanner_command(
+        strings=[
             library.metronome_markups(
                 met_string=library.metronome_marks["48"],
                 mod_string=library.metronome_marks["3:5(8)=8"],
+                string_only=True,
+            ),
+            library.metronome_markups(
+                met_string=library.metronome_marks["120"],
+                mod_string=library.metronome_marks["5:2(8)=8"],
+                string_only=True,
             ),
         ],
-        selector=trinton.select_leaves_by_index([0]),
+        selector=trinton.select_leaves_by_index([0, -1]),
+        style="solid-line-with-arrow",
+        padding=2,
+        full_string=True,
     ),
     voice=score["Global Context"],
 )
 
-# trinton.make_music(
-#     lambda _: trinton.select_target(_, (1,)),
-#     trinton.spanner_command(
-#         strings=[
-#             library.metronome_markups(
-#                 met_string=library.metronome_marks["120"],
-#                 string_only=True,
-#                 parenthesis=True,
-#             ),
-#             library.metronome_markups(
-#                 met_string=library.metronome_marks["48"],
-#                 mod_string=library.metronome_marks["2:5(8)=8"],
-#                 string_only=True,
-#             ),
-#         ],
-#         selector=trinton.select_leaves_by_index([0, -1]),
-#         style="solid-line-with-arrow",
-#         padding=2,
-#         full_string=True,
-#     ),
-#     voice=score["Global Context"],
-# )
+trinton.make_music(
+    lambda _: trinton.select_target(_, (8, 11)),
+    trinton.spanner_command(
+        strings=[
+            # library.metronome_markups(
+            #     met_string=library.metronome_marks["120"],
+            #     # mod_string=library.metronome_marks["3:5(8)=8"],
+            #     string_only=True,
+            #     parenthesis=True
+            # ),
+            r"\markup {}",
+            library.metronome_markups(
+                met_string=library.metronome_marks["48"],
+                mod_string=library.metronome_marks["2:5(8)=8"],
+                string_only=True,
+            ),
+        ],
+        selector=trinton.select_leaves_by_index([0, -1]),
+        style="solid-line-with-arrow",
+        padding=2,
+        full_string=True,
+    ),
+    voice=score["Global Context"],
+)
 
 trinton.remove_redundant_time_signatures(score=score)
 
