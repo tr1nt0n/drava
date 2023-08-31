@@ -37,20 +37,19 @@
             - \tweak padding #2
             - \abjad-solid-line-with-arrow
             - \tweak bound-details.left.text \markup \concat { { \override #'(font-size . 3.5) \concat { \abjad-metronome-mark-markup #3 #0 #1 #"48" [\abjad-metric-modulation-tuplet-lhs #3 #0 #5 #3 #3 #0 #'(1 . 1)] } } \hspace #0.5 }
-            - \tweak bound-details.right.text \markup { \override #'(font-size . 3.5) \concat { \abjad-metronome-mark-markup #3 #0 #1 #"120" [\abjad-metric-modulation-tuplet-lhs #3 #0 #2 #5 #3 #0 #'(1 . 1)] } }
             \startTextSpan
             \time 13/16
             s1 * 13/16
             \time 3/8
             s1 * 3/8
             \stopTextSpan
-            \time 3/16
-            s1 * 3/16
             - \tweak padding #2
             - \abjad-solid-line-with-arrow
-            - \tweak bound-details.left.text \markup \concat { {} \hspace #0.5 }
+            - \tweak bound-details.left.text \markup \concat { { \override #'(font-size . 3.5) \concat { \abjad-metronome-mark-markup #3 #0 #1 #"120" [\abjad-metric-modulation-tuplet-lhs #3 #0 #2 #5 #3 #0 #'(1 . 1)] } } \hspace #0.5 }
             - \tweak bound-details.right.text \markup { \override #'(font-size . 3.5) \concat { \abjad-metronome-mark-markup #3 #0 #1 #"48" [\abjad-metric-modulation-tuplet-lhs #3 #0 #5 #2 #3 #0 #'(1 . 1)] } }
             \startTextSpan
+            \time 3/16
+            s1 * 3/16
             \time 4/8
             s1 * 1/2
             \time 2/8
