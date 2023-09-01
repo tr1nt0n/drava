@@ -45,10 +45,10 @@ trinton.make_music(
     voice=score["piano 1 voice"],
 )
 
-# manual 1
+# manual 3
 
 library.morpheme_b_rhythm(
-    voice=score["piano 2 voice"],
+    voice=score["piano 4 voice"],
     measures=(8, 9),
     fuse_groups=(2,),
     stage=3,
@@ -56,16 +56,6 @@ library.morpheme_b_rhythm(
     manual="single",
     rests=False,
     counter=1,
-)
-
-trinton.make_music(
-    lambda _: trinton.select_target(_, (7, 11)),
-    trinton.linear_attachment_command(
-        attachments=[abjad.Dynamic("p"), abjad.StartHairpin("<"), abjad.Dynamic("ff")],
-        selector=trinton.select_leaves_by_index([0, 0, -1]),
-        direction=abjad.UP,
-    ),
-    voice=score["piano 2 voice"],
 )
 
 trinton.make_music(
@@ -83,12 +73,12 @@ trinton.make_music(
         ),
         selector=trinton.select_logical_ties_by_index([1, -1], first=True),
     ),
-    voice=score["piano 2 voice"],
+    voice=score["piano 4 voice"],
 )
 
 library.morpheme_c_intermittent_rhythm(
     score=score,
-    voice_name="piano 2 voice",
+    voice_name="piano 4 voice",
     measures=(12,),
     fuse_groups=(1,),
     stage=(1, 2),
@@ -99,7 +89,7 @@ library.morpheme_c_intermittent_rhythm(
 trinton.make_music(
     lambda _: trinton.select_target(_, (12,)),
     evans.PitchHandler(["ef'''"]),
-    voice=score["piano 2 voice temp"],
+    voice=score["piano 4 voice temp"],
 )
 
 trinton.make_music(
@@ -151,10 +141,10 @@ trinton.make_music(
     voice=score["piano 3 voice"],
 )
 
-# manual 3
+# manual 1
 
 library.morpheme_b_rhythm(
-    voice=score["piano 4 voice"],
+    voice=score["piano 2 voice"],
     measures=(10, 11),
     fuse_groups=(1,),
     stage=3,
@@ -171,11 +161,6 @@ trinton.make_music(
         selector=trinton.select_leaves_by_index([0, 1, 2, 3, 4, -2, -3, -4, -5, -6])
     ),
     library.double_octave_up(selector=trinton.select_leaves_by_index([-1])),
-    # library.octave_up(
-    #     selector=trinton.ranged_selector(
-    #         ranges=[range(15, 25)]
-    #     )
-    # ),
     trinton.linear_attachment_command(
         attachments=itertools.cycle(
             [
@@ -192,7 +177,17 @@ trinton.make_music(
         ],
         selector=trinton.select_logical_ties_by_index([5, 6], first=True),
     ),
-    voice=score["piano 4 voice"],
+    voice=score["piano 2 voice"],
+)
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (7, 11)),
+    trinton.linear_attachment_command(
+        attachments=[abjad.Dynamic("p"), abjad.StartHairpin("<"), abjad.Dynamic("ff")],
+        selector=trinton.select_leaves_by_index([0, 0, -1]),
+        direction=abjad.UP,
+    ),
+    voice=score["piano 2 voice"],
 )
 
 # pedals

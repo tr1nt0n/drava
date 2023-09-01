@@ -249,78 +249,52 @@
                         s1 * 3/8
                         ^ \p
                         ^ \<
-                        \tweak text #tuplet-number::calc-fraction-text
-                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 12 11) (ly:make-duration 4 0))
-                        \times 11/12
+                        s1 * 3/16
+                        s1 * 1/2
+                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 5 4) (ly:make-duration 5 0))
+                        \times 4/5
                         {
-                            \pitchedTrill
-                            ef'''2
-                            ~
-                            \startTrillSpan f'''
-                            ef'''16
+                            ef''32
                             [
+                            (
+                            df''32
+                            ef''32
+                            df''32
+                            ef''32
+                            )
+                            ]
+                        }
+                        \pitchedTrill
+                        df'8
+                        ~
+                        \startTrillSpan eff'
+                        \tweak text #tuplet-number::calc-fraction-text
+                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 10) (ly:make-duration 5 0))
+                        \times 10/7
+                        {
+                            df'8
+                            [
+                            ~
+                            df'32
                             \tweak text #tuplet-number::calc-fraction-text
-                            \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 5 6) (ly:make-duration 5 0))
-                            \times 6/5
+                            \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 8) (ly:make-duration 7 0))
+                            \times 8/7
                             {
-                                fs''32
+                                b'128
                                 \stopTrillSpan
                                 (
-                                e'''32
-                                b''32
-                                ef''32
-                                c''32
+                                fs''128
+                                b''128
+                                a''128
+                                g''128
+                                b''128
+                                fs'''128
+                                ^ \ff
                                 )
                                 ]
                             }
                         }
                         s1 * 1/4
-                        s1 * 5/16
-                        ^ \ff
-                        <<
-                            \context Voice = "piano 2 voice temp"
-                            {
-                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 9 8) (ly:make-duration 5 0))
-                                \times 8/9
-                                {
-                                    \voiceOne
-                                    r16
-                                    [
-                                    ef'''32
-                                    r16
-                                    ef'''32
-                                    r16
-                                    ef'''32
-                                    ]
-                                }
-                            }
-                            \context Voice = "morpheme c lower voice 1"
-                            {
-                                \tweak text #tuplet-number::calc-fraction-text
-                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 15 16) (ly:make-duration 6 0))
-                                \times 16/15
-                                {
-                                    \voiceTwo
-                                    bf''64.
-                                    \pp
-                                    [
-                                    r64
-                                    f''64.
-                                    r64
-                                    e''64.
-                                    r64
-                                    ef'64.
-                                    r64
-                                    f'64.
-                                    r64
-                                    <ef a bf>64.
-                                    - \turn
-                                    r64
-                                    ]
-                                }
-                            }
-                        >>
-                        \oneVoice
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
@@ -434,51 +408,77 @@
                         s1 * 1/4
                         s1 * 13/16
                         s1 * 3/8
-                        s1 * 3/16
-                        s1 * 1/2
-                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 5 4) (ly:make-duration 5 0))
-                        \times 4/5
-                        {
-                            ef''32
-                            [
-                            (
-                            df''32
-                            ef''32
-                            df''32
-                            ef''32
-                            )
-                            ]
-                        }
-                        \pitchedTrill
-                        df'8
-                        ~
-                        \startTrillSpan eff'
                         \tweak text #tuplet-number::calc-fraction-text
-                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 10) (ly:make-duration 5 0))
-                        \times 10/7
+                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 12 11) (ly:make-duration 4 0))
+                        \times 11/12
                         {
-                            df'8
-                            [
+                            \pitchedTrill
+                            ef'''2
                             ~
-                            df'32
+                            \startTrillSpan f'''
+                            ef'''16
+                            [
                             \tweak text #tuplet-number::calc-fraction-text
-                            \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 8) (ly:make-duration 7 0))
-                            \times 8/7
+                            \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 5 6) (ly:make-duration 5 0))
+                            \times 6/5
                             {
-                                b'128
+                                fs''32
                                 \stopTrillSpan
                                 (
-                                fs''128
-                                b''128
-                                a''128
-                                g''128
-                                b''128
-                                fs'''128
+                                e'''32
+                                b''32
+                                ef''32
+                                c''32
                                 )
                                 ]
                             }
                         }
                         s1 * 1/4
+                        s1 * 5/16
+                        <<
+                            \context Voice = "piano 4 voice temp"
+                            {
+                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 9 8) (ly:make-duration 5 0))
+                                \times 8/9
+                                {
+                                    \voiceOne
+                                    r16
+                                    [
+                                    ef'''32
+                                    r16
+                                    ef'''32
+                                    r16
+                                    ef'''32
+                                    ]
+                                }
+                            }
+                            \context Voice = "morpheme c lower voice 1"
+                            {
+                                \tweak text #tuplet-number::calc-fraction-text
+                                \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 15 16) (ly:make-duration 6 0))
+                                \times 16/15
+                                {
+                                    \voiceTwo
+                                    bf''64.
+                                    \pp
+                                    [
+                                    r64
+                                    f''64.
+                                    r64
+                                    e''64.
+                                    r64
+                                    ef'64.
+                                    r64
+                                    f'64.
+                                    r64
+                                    <ef a bf>64.
+                                    - \turn
+                                    r64
+                                    ]
+                                }
+                            }
+                        >>
+                        \oneVoice
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
