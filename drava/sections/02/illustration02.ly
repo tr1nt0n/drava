@@ -90,6 +90,8 @@
                       %! +SCORE
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                       %! +SCORE
+                    \once \override Staff.TimeSignature.transparent = ##t
+                      %! +SCORE
                     \once \override MultiMeasureRest.transparent = ##t
                     R1 * 3/16
                       %! +SCORE
