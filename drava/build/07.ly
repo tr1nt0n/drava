@@ -333,6 +333,7 @@
                         \times 60/63
                         {
                             \change Staff = "piano 2 staff"
+                            \once \override Beam.damping = #99
                             <ef af b>16
                             ^ \mordent
                             [

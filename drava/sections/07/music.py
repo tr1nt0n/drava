@@ -271,8 +271,9 @@ trinton.make_music(
         attachments=[
             abjad.LilyPondLiteral(r"\override Stem.direction = #DOWN", site="before"),
             abjad.LilyPondLiteral(r"\revert Stem.direction", site="after"),
+            abjad.LilyPondLiteral(r"\once \override Beam.damping = #99", site="before"),
         ],
-        selector=trinton.select_leaves_by_index([0, -1]),
+        selector=trinton.select_leaves_by_index([0, -1, 10]),
     ),
     library.c_ornaments(
         selector=trinton.select_leaves_by_index([3, 5, 8, 10], pitched=True),
