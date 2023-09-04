@@ -48,6 +48,7 @@
             }
             \time 5/16
             s1 * 5/16
+            \noBreak
             \time 4/16
             s1 * 1/4
             \time 3/16

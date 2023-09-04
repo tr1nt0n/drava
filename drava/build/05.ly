@@ -46,6 +46,7 @@
             \set Score.repeatCommands = #'((volta "3"))
             \time 3/8
             s1 * 3/8
+            \noBreak
             \set Score.repeatCommands = #'((volta #f))
             \time 2/8
             s1 * 1/4

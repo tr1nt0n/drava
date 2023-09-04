@@ -388,19 +388,26 @@ trinton.whiteout_empty_staves(
     cutaway="blank",
 )
 
-# trinton.make_music(
-#     lambda _: trinton.select_target(_, (1,)),
-#     trinton.attachment_command(
-#         attachments=[
-#             library.metronome_markups(
-#                 met_string=library.metronome_marks["80"],
-#                 mod_string=library.metronome_marks["5:3(8)=8"],
-#             )
-#         ],
-#         selector=trinton.select_leaves_by_index([0]),
-#     ),
-#     voice=score["Global Context"],
-# )
+for measure in [
+    4,
+    5,
+    7,
+    8,
+]:
+    trinton.make_music(
+        lambda _: trinton.select_target(_, (measure,)),
+        trinton.linear_attachment_command(
+            attachments=[
+                abjad.LilyPondLiteral(r"\noBreak", site="absolute_after"),
+            ],
+            selector=trinton.select_leaves_by_index(
+                [
+                    0,
+                ]
+            ),
+        ),
+        voice=score["Global Context"],
+    )
 
 trinton.make_music(
     lambda _: trinton.select_target(_, (4, 10)),

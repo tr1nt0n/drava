@@ -470,17 +470,21 @@ trinton.whiteout_empty_staves(
 
 trinton.remove_redundant_time_signatures(score=score)
 
-trinton.make_music(
-    lambda _: trinton.select_target(_, (1, 12)),
-    trinton.linear_attachment_command(
-        attachments=[
-            abjad.LilyPondLiteral(r"\break", site="before"),
-            abjad.LilyPondLiteral(r"\noBreak", site="after"),
-        ],
-        selector=trinton.select_leaves_by_index([0, 7]),
-    ),
-    voice=score["Global Context"],
-)
+for measure in [1, 2, 3, 4, 5, 7, 8, 10, 11, 12]:
+    trinton.make_music(
+        lambda _: trinton.select_target(_, (measure,)),
+        trinton.linear_attachment_command(
+            attachments=[
+                abjad.LilyPondLiteral(r"\noBreak", site="absolute_after"),
+            ],
+            selector=trinton.select_leaves_by_index(
+                [
+                    0,
+                ]
+            ),
+        ),
+        voice=score["Global Context"],
+    )
 
 # render file
 

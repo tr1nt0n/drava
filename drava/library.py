@@ -313,7 +313,15 @@ def respell_tuplets(tuplets):
 def double_octave_up(selector=trinton.pleaves()):
     def octave(argument):
         selections = selector(argument)
-        abjad.mutate.transpose(selections, 24)
+        for selection in selections:
+            if isinstance(selection, abjad.NoteHead):
+                current_pitch = selection.written_pitch
+                current_numbered_pitch = current_pitch.number
+                new_pitch = abjad.NumberedPitch(current_numbered_pitch + 24)
+                new_pitch_name = new_pitch.name
+                selection.written_pitch = new_pitch_name
+            else:
+                abjad.mutate.transpose(selection, 24)
 
     return octave
 
@@ -321,7 +329,15 @@ def double_octave_up(selector=trinton.pleaves()):
 def octave_up(selector=trinton.pleaves()):
     def octave(argument):
         selections = selector(argument)
-        abjad.mutate.transpose(selections, 12)
+        for selection in selections:
+            if isinstance(selection, abjad.NoteHead):
+                current_pitch = selection.written_pitch
+                current_numbered_pitch = current_pitch.number
+                new_pitch = abjad.NumberedPitch(current_numbered_pitch + 12)
+                new_pitch_name = new_pitch.name
+                selection.written_pitch = new_pitch_name
+            else:
+                abjad.mutate.transpose(selection, 12)
 
     return octave
 
@@ -329,7 +345,15 @@ def octave_up(selector=trinton.pleaves()):
 def octave_down(selector=trinton.pleaves()):
     def octave(argument):
         selections = selector(argument)
-        abjad.mutate.transpose(selections, -12)
+        for selection in selections:
+            if isinstance(selection, abjad.NoteHead):
+                current_pitch = selection.written_pitch
+                current_numbered_pitch = current_pitch.number
+                new_pitch = abjad.NumberedPitch(current_numbered_pitch - 12)
+                new_pitch_name = new_pitch.name
+                selection.written_pitch = new_pitch_name
+            else:
+                abjad.mutate.transpose(selection, -12)
 
     return octave
 
@@ -337,7 +361,15 @@ def octave_down(selector=trinton.pleaves()):
 def double_octave_down(selector=trinton.pleaves()):
     def octave(argument):
         selections = selector(argument)
-        abjad.mutate.transpose(selections, -24)
+        for selection in selections:
+            if isinstance(selection, abjad.NoteHead):
+                current_pitch = selection.written_pitch
+                current_numbered_pitch = current_pitch.number
+                new_pitch = abjad.NumberedPitch(current_numbered_pitch - 24)
+                new_pitch_name = new_pitch.name
+                selection.written_pitch = new_pitch_name
+            else:
+                abjad.mutate.transpose(selection, -24)
 
     return octave
 

@@ -28,6 +28,7 @@
             s1 * 13/16
             \time 3/8
             s1 * 3/8
+            \noBreak
             \time 3/16
             s1 * 3/16
             \stopTextSpan
@@ -36,21 +37,26 @@
             - \tweak bound-details.left.text \markup \concat { { \override #'(font-size . 3.5) \concat { \abjad-metronome-mark-markup #3 #0 #1 #"120" [\abjad-metric-modulation-tuplet-lhs #3 #0 #2 #5 #3 #0 #'(1 . 1)] } } \hspace #0.5 }
             - \tweak bound-details.right.text \markup { \override #'(font-size . 3.5) \concat { \abjad-metronome-mark-markup #3 #0 #1 #"48" [\abjad-metric-modulation-tuplet-lhs #3 #0 #5 #2 #3 #0 #'(1 . 1)] } }
             \startTextSpan
+            \noBreak
             \time 4/8
             s1 * 1/2
+            \noBreak
             \time 2/8
             s1 * 1/4
+            \noBreak
             \time 5/16
             s1 * 5/16
             \stopTextSpan
             \time 2/8
             s1 * 1/4
+            \break
             \once \override Score.BarLine.transparent = ##f
             \once \override MultiMeasureRest.transparent = ##t
             \once \override Score.TimeSignature.stencil = ##f
             \time 1/4
             R1 * 1/4
             _ \markup \center-column { \abs-fontsize #30 \musicglyph "scripts.ufermata" }
+            \noBreak
             \once \override Score.BarLine.transparent = ##f
         }
         \context StaffGroup = "Staff Group"

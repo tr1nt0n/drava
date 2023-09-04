@@ -16,21 +16,26 @@
     <<
         \context TimeSignatureContext = "Global Context"
         {
-            \break
             \time 3/16
             s1 * 3/16
+            \noBreak
             \time 3/8
             s1 * 3/8
+            \noBreak
             \time 13/16
             s1 * 13/16
+            \noBreak
             \time 3/8
             s1 * 3/8
+            \noBreak
             \time 2/8
             s1 * 1/4
+            \noBreak
             \time 5/16
             s1 * 5/16
             \time 13/16
             s1 * 13/16
+            \noBreak
             \time 3/8
             s1 * 3/8
             \noBreak
@@ -38,10 +43,13 @@
             s1 * 1/4
             \time 5/16
             s1 * 5/16
+            \noBreak
             \time 3/8
             s1 * 3/8
+            \noBreak
             \time 4/8
             s1 * 1/2
+            \noBreak
         }
         \context StaffGroup = "Staff Group"
         <<

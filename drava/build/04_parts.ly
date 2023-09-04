@@ -48,10 +48,13 @@
                   [\abjad-metric-modulation-tuplet-lhs #3 #0 #3 #5 #3 #0 #'(1 . 1)]
               }
             }
+            \noBreak
             \time 2/16
             s1 * 1/8
+            \noBreak
             \time 3/16
             s1 * 3/16
+            \noBreak
             \time 4/16
             s1 * 1/4
         }

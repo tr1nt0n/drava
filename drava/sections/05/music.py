@@ -332,6 +332,21 @@ trinton.whiteout_empty_staves(
 )
 
 trinton.make_music(
+    lambda _: trinton.select_target(_, (6,)),
+    trinton.linear_attachment_command(
+        attachments=[
+            abjad.LilyPondLiteral(r"\noBreak", site="absolute_after"),
+        ],
+        selector=trinton.select_leaves_by_index(
+            [
+                0,
+            ]
+        ),
+    ),
+    voice=score["Global Context"],
+)
+
+trinton.make_music(
     lambda _: trinton.select_target(_, (2,)),
     trinton.attachment_command(
         attachments=[

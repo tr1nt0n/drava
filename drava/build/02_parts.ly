@@ -13,17 +13,21 @@
             s1 * 3/16
             \time 7/16
             s1 * 7/16
+            \noBreak
             \time 2/16
             s1 * 1/8
+            \noBreak
             \noBreak
             \once \override Score.TimeSignature.stencil = ##f
             \time 2/16
             s1 * 1/8
             \noBreak
+            \noBreak
             \time 3/16
             s1 * 3/16
             \time 4/16
             s1 * 1/4
+            \noBreak
             \noBreak
             \time 12/16
             s1 * 3/4
@@ -31,8 +35,10 @@
             s1 * 5/16
             \time 7/16
             s1 * 7/16
+            \noBreak
             \time 2/16
             s1 * 1/8
+            \noBreak
             \once \override Score.TimeSignature.stencil = ##f
             \time 2/16
             s1 * 1/8

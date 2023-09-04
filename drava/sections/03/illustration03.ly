@@ -39,15 +39,19 @@
             - \tweak bound-details.left.text \markup \concat { { \override #'(font-size . 3.5) \concat { \abjad-metronome-mark-markup #3 #0 #1 #"48" } } \hspace #0.5 }
             - \tweak bound-details.right.text \markup { \override #'(font-size . 3.5) \concat { \abjad-metronome-mark-markup #3 #0 #1 #"120" [\abjad-metric-modulation-tuplet-lhs #3 #0 #2 #5 #3 #0 #'(1 . 1)] } }
             \startTextSpan
+            \noBreak
             \once \override Score.TimeSignature.stencil = ##f
             \time 3/16
             s1 * 3/16
+            \noBreak
             \time 5/16
             s1 * 5/16
             \time 4/16
             s1 * 1/4
+            \noBreak
             \time 2/16
             s1 * 1/8
+            \noBreak
             \once \override Score.TimeSignature.stencil = ##f
             \time 2/16
             s1 * 1/8
