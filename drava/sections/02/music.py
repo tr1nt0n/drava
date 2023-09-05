@@ -364,6 +364,7 @@ trinton.make_music(
     lambda _: trinton.select_target(_, (9, 10)),
     evans.PitchHandler(pitch.return_morpheme_a_pitch_lists(rotation=3)[0]),
     library.double_octave_up(),
+    library.octave_down(selector=trinton.notehead_selector([-1], [[-1]])),
     voice=score["morpheme a outer voice 2"],
 )
 

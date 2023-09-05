@@ -784,19 +784,19 @@
                                 ~
                                 <d'' ef'''>16
                                 [
-                                <bf' cs'''>8
+                                <bf'' cs'''>8
                                 ]
                                 ~
-                                <bf' cs'''>8
+                                <bf'' cs'''>8
                                 ~
-                                <bf' cs'''>2.
+                                <bf'' cs'''>2.
                                 ~
-                                <bf' cs'''>8..
+                                <bf'' cs'''>8..
                                 [
-                                <af' cs'''>32
+                                <af'' cs'''>32
                                 ]
                                 ~
-                                <af' cs'''>8.
+                                <af'' cs'''>8.
                                 ~
                             }
                         >>
@@ -831,10 +831,10 @@
                             \context Voice = "morpheme a outer voice 2"
                             {
                                 \voiceTwo
-                                <af cs''>8
+                                <af' cs''>8
                                 \pp
                                 ~
-                                <af cs''>32
+                                <af' cs''>32
                                 [
                                 <e'' a''>32
                                 ]

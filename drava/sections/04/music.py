@@ -276,6 +276,31 @@ trinton.make_music(
     lambda _: trinton.select_target(_, (3, 10)),
     evans.PitchHandler(pitch.return_morpheme_a_pitch_lists(rotation=5)[0]),
     library.double_octave_up(),
+    library.octave_up(
+        selector=trinton.notehead_selector(
+            [9, 10, 11, 12, 13, 14],
+            [
+                [
+                    0,
+                ],
+                [
+                    0,
+                ],
+                [
+                    0,
+                ],
+                [
+                    0,
+                ],
+                [
+                    0,
+                ],
+                [
+                    0,
+                ],
+            ],
+        )
+    ),
     voice=score["morpheme a outer voice 1"],
 )
 
@@ -301,6 +326,19 @@ trinton.make_music(
     lambda _: trinton.select_target(_, (11, 12)),
     evans.PitchHandler(pitch.return_morpheme_a_pitch_lists(rotation=8)[0]),
     library.octave_up(),
+    library.octave_up(
+        selector=trinton.notehead_selector(
+            [0, 1],
+            [
+                [
+                    0,
+                ],
+                [
+                    0,
+                ],
+            ],
+        )
+    ),
     trinton.attachment_command(
         attachments=[abjad.Dynamic("pp")], selector=trinton.select_leaves_by_index([0])
     ),
