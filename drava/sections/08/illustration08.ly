@@ -109,7 +109,7 @@
             \once \override Score.TimeSignature.stencil = ##f
             \time 1/4
             R1 * 1/4
-            _ \markup \center-column { \abs-fontsize #30 \musicglyph "scripts.ushortfermata" }
+            _ \markup \center-column { \abs-fontsize #30 \musicglyph "scripts.ufermata" }
             \once \override Score.BarLine.transparent = ##f
         }
         \context StaffGroup = "Staff Group"

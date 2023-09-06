@@ -33,8 +33,16 @@ score = library.drava_score(time_signatures=time_signatures)
 
 trinton.fermata_measures(
     score=score,
-    measures=[6, 8, 19],
+    measures=[6, 8],
     fermata="ushortfermata",
+    font_size="30",
+    clef_whitespace=False,
+)
+
+trinton.fermata_measures(
+    score=score,
+    measures=[19],
+    fermata="ufermata",
     font_size="30",
     clef_whitespace=False,
 )

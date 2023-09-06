@@ -142,9 +142,7 @@ def write_short_instrument_names(score):
 
 
 def imbricate(
-    pitches,
-    name,
-    selector=trinton.pleaves(),
+    pitches, name, selector=trinton.pleaves(), note_head="\lowest", direction=abjad.UP
 ):
     def imbricate(argument):
         selections = selector(argument)
@@ -153,7 +151,7 @@ def imbricate(
             selections=selections,
             pitches=pitches,
             name=name,
-            direction=abjad.UP,
+            direction=direction,
             articulation=None,
             beam=False,
             secondary=True,
@@ -164,7 +162,7 @@ def imbricate(
             hocket=False,
             truncate_ties=False,
             direct_attachments=False,
-            note_head="\lowest",
+            note_head=note_head,
         )
 
     return imbricate
