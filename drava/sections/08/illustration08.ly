@@ -643,6 +643,7 @@
                                     {
                                         e'''64
                                         [
+                                        ^ (
                                         cs'''64
                                         b''64
                                         \ottava 0
@@ -656,6 +657,7 @@
                                     ~
                                 }
                                 ef'4
+                                )
                                 \change Staff = "piano 4 staff"
                             }
                             \context Voice = "morpheme a outer voice 2"

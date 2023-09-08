@@ -378,6 +378,11 @@ trinton.make_music(
         selector=trinton.select_logical_ties_by_index([0, 4], first=True),
         direction=abjad.DOWN,
     ),
+    trinton.linear_attachment_command(
+        attachments=itertools.cycle([abjad.StartSlur(), abjad.StopSlur()]),
+        selector=trinton.select_leaves_by_index([3, 9]),
+        direction=abjad.UP,
+    ),
     voice=score["piano 4 voice"],
 )
 

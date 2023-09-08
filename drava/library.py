@@ -431,7 +431,7 @@ def pitch_morpheme_b(stage=1, selector=trinton.pleaves(), rotation=0):
             if i % 3 == 2:
                 start_trill = abjad.StartTrillSpan(interval=abjad.NamedInterval("m2"))
 
-            abjad.attach(start_trill, tie[0])
+            abjad.attach(start_trill, tie[0], direction=abjad.UP)
 
             next_leaf = abjad.select.with_next_leaf(tie[-1])[-1]
             next_leaf_parent = abjad.get.parentage(next_leaf).parent
