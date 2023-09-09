@@ -101,9 +101,10 @@ trinton.make_music(
     lambda _: trinton.select_target(_, (9,)),
     evans.RhythmHandler(rmakers.note),
     evans.PitchHandler(
-        [["f'", "a'", "fs''", "d''", "c''", "g''", "cs'''", "ds'''", "b'''"]],
+        [
+            ["f", "a", "d'", "c'", "fs'", "g''", "cs'''", "ds'''", "b'''"],
+        ],
     ),
-    trinton.ottava_command(selector=trinton.select_leaves_by_index([0, 0])),
     trinton.attachment_command(
         attachments=[trinton.make_custom_dynamic("fffff")],
         selector=trinton.select_leaves_by_index([0], pitched=True),

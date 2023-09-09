@@ -287,10 +287,8 @@
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff
-                        \ottava 1
-                        <f' a' c'' d'' fs'' g'' cs''' ds''' b'''>4..
+                        <f a c' d' fs' g'' cs''' ds''' b'''>4..
                             _ #(make-dynamic-script (markup #:whiteout #:italic "fffff"))
-                        \ottava 0
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
                         \stopStaff \startStaff

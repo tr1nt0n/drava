@@ -941,6 +941,69 @@ def b_rhythm_graces(selector=None, counter=1):
     return graces
 
 
+def last_measure_graces():
+    def graces(durations):
+
+        tuplet_list = []
+
+        for i, _ in enumerate([1 for _ in range(92)]):
+            if i % 5 == 0:
+                tuplet_list.append(4)
+
+            if i % 11 == 0:
+                tuplet_list.append(8)
+
+            else:
+                tuplet_list.append(_)
+
+        tuplet = tuple(tuplet_list)
+
+        nested_music = rmakers.tuplet(durations, [tuplet])
+
+        grace_components = abjad.Container(nested_music)
+        rmakers.rewrite_dots(grace_components)
+        rmakers.beam(grace_components)
+
+        abjad.attach(
+            abjad.LilyPondLiteral(r"\slash", "before"),
+            abjad.select.leaf(grace_components, 0),
+        )
+        abjad.attach(
+            abjad.LilyPondLiteral(
+                r"\once \override NoteHead.duration-log = -2", site="before"
+            ),
+            abjad.select.leaf(grace_components, 0),
+        )
+        abjad.attach(
+            abjad.LilyPondLiteral(
+                r"\once \override TupletBracket.transparent = ##t", site="before"
+            ),
+            abjad.select.leaf(grace_components, 0),
+        )
+        abjad.attach(
+            abjad.LilyPondLiteral(
+                r"\once \override TupletNumber.transparent = ##t", site="before"
+            ),
+            abjad.select.leaf(grace_components, 0),
+        )
+        abjad.attach(
+            abjad.LilyPondLiteral(
+                r"\once \override TupletNumber.transparent = ##t", site="before"
+            ),
+            abjad.select.leaf(grace_components, 0),
+        )
+        abjad.attach(
+            abjad.LilyPondLiteral(r"\set fontSize = #-3", "before"),
+            abjad.select.leaf(grace_components, 1),
+        )
+
+        grace_components = abjad.mutate.eject_contents(grace_components)
+
+        return grace_components
+
+    return graces
+
+
 def morpheme_b_rhythm(
     voice,
     measures,
@@ -1172,6 +1235,7 @@ def label_time_signature_sketch(voice, ts_pair_list, motion):
 
 metronome_marks = {
     "48": abjad.MetronomeMark.make_tempo_equation_markup((1, 8), 48),
+    "60": abjad.MetronomeMark.make_tempo_equation_markup((1, 8), 60),
     "80": abjad.MetronomeMark.make_tempo_equation_markup((1, 8), 80),
     "120": abjad.MetronomeMark.make_tempo_equation_markup((1, 8), 120),
     # slower

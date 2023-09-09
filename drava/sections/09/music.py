@@ -39,9 +39,10 @@ trinton.make_music(
     lambda _: trinton.select_target(_, (1,)),
     evans.RhythmHandler(rmakers.note),
     evans.PitchHandler(
-        [["f'", "a'", "fs''", "d''", "c''", "g''", "cs'''", "ds'''", "b'''"]],
+        [
+            ["f", "a", "d'", "c'", "fs'", "g''", "cs'''", "ds'''", "b'''"],
+        ],
     ),
-    trinton.ottava_command(selector=trinton.select_leaves_by_index([0, 0])),
     trinton.linear_attachment_command(
         attachments=[trinton.make_custom_dynamic("fffff"), abjad.BreathMark()],
         selector=trinton.select_leaves_by_index([0, -1], pitched=True),
@@ -560,7 +561,7 @@ trinton.make_music(
             "a,,",
             "a,,",
             "a,,",
-            "gf,",
+            "gs,",
             "gf,",
             "gf,",
             "gf,",
@@ -624,7 +625,7 @@ trinton.make_music(
             library.metronome_markups(
                 met_string=library.metronome_marks["80"],
                 mod_string=library.metronome_marks["5:3(8)=8"],
-                padding=0,
+                padding=1,
             ),
         ],
         selector=trinton.select_leaves_by_index([0]),

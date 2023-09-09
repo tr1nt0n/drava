@@ -15,7 +15,7 @@
             \time 3/8
             s1 * 3/8
             ^ \markup {
-              \raise #0 \with-dimensions-from \null
+              \raise #1 \with-dimensions-from \null
               \override #'(font-size . 3.5)
               \concat {
                   \abjad-metronome-mark-markup #3 #0 #1 #"80"
@@ -377,13 +377,11 @@
                 {
                     \context Voice = "piano 2 voice"
                     {
-                        \ottava 1
                         \set Staff.instrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Bold") { I }
                         \set Staff.shortInstrumentName = \markup \fontsize #4 \override #'(font-name . "Bodoni72 Bold") { I }
-                        <f' a' c'' d'' fs'' g'' cs''' ds''' b'''>8
+                        <f a c' d' fs' g'' cs''' ds''' b'''>8
                             _ #(make-dynamic-script (markup #:whiteout #:italic "fffff"))
                         \breathe
-                        \ottava 0
                         <<
                             \context Voice = "piano 2 voice temp"
                             {
@@ -1679,19 +1677,7 @@
                             a,,64
                             a,,64
                             a,,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            f,64
-                            f,64
-                            f,64
-                            f,64
-                            a,,64
-                            a,,64
-                            a,,64
-                            gf,64
+                            gs,64
                             gf,64
                             gf,64
                             gf,64
@@ -1703,19 +1689,7 @@
                             a,,64
                             a,,64
                             a,,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            f,64
-                            f,64
-                            f,64
-                            f,64
-                            a,,64
-                            a,,64
-                            a,,64
-                            gf,64
+                            gs,64
                             gf,64
                             gf,64
                             gf,64
@@ -1727,19 +1701,7 @@
                             a,,64
                             a,,64
                             a,,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            f,64
-                            f,64
-                            f,64
-                            f,64
-                            a,,64
-                            a,,64
-                            a,,64
-                            gf,64
+                            gs,64
                             gf,64
                             gf,64
                             gf,64
@@ -1751,19 +1713,7 @@
                             a,,64
                             a,,64
                             a,,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            gf,64
-                            f,64
-                            f,64
-                            f,64
-                            f,64
-                            a,,64
-                            a,,64
-                            a,,64
-                            gf,64
+                            gs,64
                             gf,64
                             gf,64
                             gf,64
@@ -1775,7 +1725,55 @@
                             a,,64
                             a,,64
                             a,,64
+                            gs,64
                             gf,64
+                            gf,64
+                            gf,64
+                            gf,64
+                            f,64
+                            f,64
+                            f,64
+                            f,64
+                            a,,64
+                            a,,64
+                            a,,64
+                            gs,64
+                            gf,64
+                            gf,64
+                            gf,64
+                            gf,64
+                            f,64
+                            f,64
+                            f,64
+                            f,64
+                            a,,64
+                            a,,64
+                            a,,64
+                            gs,64
+                            gf,64
+                            gf,64
+                            gf,64
+                            gf,64
+                            f,64
+                            f,64
+                            f,64
+                            f,64
+                            a,,64
+                            a,,64
+                            a,,64
+                            gs,64
+                            gf,64
+                            gf,64
+                            gf,64
+                            gf,64
+                            f,64
+                            f,64
+                            f,64
+                            f,64
+                            a,,64
+                            a,,64
+                            a,,64
+                            gs,64
                             gf,64
                             gf,64
                             gf,64
