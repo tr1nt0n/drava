@@ -141,6 +141,79 @@ def write_short_instrument_names(score):
 # notation tools
 
 
+def ending_duration_lines():
+    def duration_lines(argument):
+        relevant_leaves = abjad.select.leaves(argument)[-9:]
+
+        for number in list(range(0, 7)):
+            abjad.glissando(
+                relevant_leaves[number:],
+                hide_middle_note_heads=False,
+                allow_repeats=True,
+                allow_ties=True,
+                zero_padding=True,
+            )
+
+    return duration_lines
+
+
+def slur_ending():
+    def slur(argument):
+        leaves = abjad.select.leaves(argument)
+
+        sixty_fourth_leaves = trinton.durational_selector(
+            durations=[abjad.Duration((1, 64))]
+        )(leaves)
+
+        sixty_fourth_groups = abjad.select.group_by_contiguity(sixty_fourth_leaves)
+
+        for group in sixty_fourth_groups:
+            if len(group) > 1:
+                abjad.slur(group)
+
+    return slur
+
+
+def imbricate_ending():
+    def imbricate(argument):
+        relevant_ties = []
+
+        for tie in abjad.select.logical_ties(argument):
+            tie_duration = abjad.get.duration(tie, preprolated=True)
+            if tie_duration == abjad.Duration(
+                (1, 16)
+            ) or tie_duration == abjad.Duration((1, 8)):
+                relevant_ties.append(tie)
+
+        relevant_ties = relevant_ties[0:-2]
+
+        pitches = []
+
+        for tie in relevant_ties:
+            pitch_number = tie[0].written_pitch.number
+            pitches.append(pitch_number)
+
+        evans.imbricate(
+            selections=argument,
+            pitches=pitches,
+            name="final measure imbrication",
+            direction=abjad.UP,
+            articulation=None,
+            beam=False,
+            secondary=True,
+            allow_unused_pitches=False,
+            by_pitch_class=False,
+            by_index=False,
+            cyclic_period=None,
+            hocket=False,
+            truncate_ties=False,
+            direct_attachments=False,
+            note_head=None,
+        )
+
+    return imbricate
+
+
 def imbricate(
     pitches, name, selector=trinton.pleaves(), note_head="\lowest", direction=abjad.UP
 ):
@@ -993,7 +1066,7 @@ def last_measure_graces():
             abjad.select.leaf(grace_components, 0),
         )
         abjad.attach(
-            abjad.LilyPondLiteral(r"\set fontSize = #-3", "before"),
+            abjad.LilyPondLiteral(r"\set fontSize = #-5", "before"),
             abjad.select.leaf(grace_components, 1),
         )
 

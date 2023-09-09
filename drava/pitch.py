@@ -6,7 +6,7 @@ import itertools
 import fractions
 import quicktions
 
-# segments
+# ending
 
 
 def start():
@@ -47,6 +47,20 @@ def transform_i():
             penta_counter += 1
 
     return segments, new_labels
+
+
+def return_final_measure_pitches(index=0):
+    chords, labels = transform_i()
+
+    pitch_list = []
+
+    for segment in chords:
+        for pitch_class in segment:
+            pitch_list.append(pitch_class.number)
+
+    pitch_list = trinton.rotated_sequence(pitch_list, index % len(pitch_list))
+
+    return pitch_list
 
 
 def transform_ii():
