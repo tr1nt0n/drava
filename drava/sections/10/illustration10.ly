@@ -1011,7 +1011,7 @@
                     \once \override Stem.stencil = ##f
                     \once \override Tie.stencil = ##f
                     \afterGrace
-                    <d,, ef,>4
+                    <d,, e,,>4
                       %! abjad.glissando(7)
                     - \abjad-zero-padding-glissando
                       %! abjad.glissando(7)
@@ -1043,7 +1043,7 @@
                         \revert NoteHead.no-ledgers
                           %! abjad.glissando(6)
                         \undo \hide NoteHead
-                        <d,, ef,>16
+                        <d,, e,,>16
                         \ottava 0
                     }
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff

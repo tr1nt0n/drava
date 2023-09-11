@@ -429,7 +429,7 @@ trinton.make_music(
     evans.RhythmHandler(rmakers.note),
     library.aftergrace(),
     evans.PitchHandler(
-        [["e,,", "gs,", "as,"], ["e,,", "gs,", "as,"], ["d,,", "ef,"], ["d,,", "ef,"]],
+        [["e,,", "gs,", "as,"], ["e,,", "gs,", "as,"], ["d,,", "e,,"], ["d,,", "e,,"]],
     ),
     trinton.ottava_command(
         octave=-1, selector=trinton.select_leaves_by_index([0, -1], pitched=True)

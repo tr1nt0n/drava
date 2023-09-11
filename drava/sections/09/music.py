@@ -561,7 +561,7 @@ trinton.make_music(
             "a,,",
             "a,,",
             "a,,",
-            "gs,",
+            "gf,",
             "gf,",
             "gf,",
             "gf,",
