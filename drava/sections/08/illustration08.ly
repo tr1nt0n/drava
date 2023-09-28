@@ -376,8 +376,11 @@
                         \once \override Staff.Clef.extra-offset = #'(-2.75 . 0)
                         \clef "treble"
                         s1 * 19/32
+                        ^ \ff
+                        ^ \>
                         \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                         s1 * 1/4
+                        ^ \pp
                         \stopStaff \startStaff
                         s1 * 5/16
                         s1 * 3/8
@@ -754,7 +757,23 @@
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                     s1 * 1/4
                     \stopStaff \startStaff
-                    s1 * 19/32
+                    \once \override NoteHead.stencil = #(lambda (grob) (let ((dur (ly:grob-property grob 'duration-log))) (if (= dur 0) (grob-interpret-markup grob (markup #:ekmelos-char #xe0c4)) (if (= dur 1) (grob-interpret-markup grob (markup #:ekmelos-char #xe0c5)) (if (> dur 1) (grob-interpret-markup grob (markup #:ekmelos-char #xe0c7)))))))
+                    \clef "bass"
+                    \once \override NoteHead.no-ledgers = ##t
+                    \once \override NoteHead.stem-attachment = #'(0 . 0.75)
+                    \once \override Staff.AccidentalPlacement.right-padding = #0.6
+                    <c, df,>4
+                    \mf
+                    ~
+                    \once \override NoteHead.stencil = #(lambda (grob) (let ((dur (ly:grob-property grob 'duration-log))) (if (= dur 0) (grob-interpret-markup grob (markup #:ekmelos-char #xe0c4)) (if (= dur 1) (grob-interpret-markup grob (markup #:ekmelos-char #xe0c5)) (if (> dur 1) (grob-interpret-markup grob (markup #:ekmelos-char #xe0c7)))))))
+                    \once \override NoteHead.no-ledgers = ##t
+                    \once \override NoteHead.stem-attachment = #'(0 . 0.75)
+                    \once \override Staff.AccidentalPlacement.right-padding = #0.6
+                    <c, df,>32
+                    r16.
+                    r16
+                    r16.
+                    r16
                     \stopStaff \once \override Staff.StaffSymbol.line-count = #0 \startStaff
                     s1 * 1/4
                     \stopStaff \startStaff

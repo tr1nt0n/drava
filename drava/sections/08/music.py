@@ -112,6 +112,20 @@ trinton.make_music(
     voice=score["piano 4 voice"],
 )
 
+trinton.make_music(
+    lambda _: trinton.select_target(_, (7, 8)),
+    trinton.linear_attachment_command(
+        attachments=[
+            abjad.Dynamic("ff"),
+            abjad.StartHairpin(">"),
+            abjad.Dynamic("pp")
+        ],
+        selector=trinton.select_leaves_by_index([0, 0, -1]),
+        direction=abjad.UP
+    ),
+    voice=score["piano 2 voice"]
+)
+
 # manual 1
 
 trinton.make_music(
@@ -480,6 +494,21 @@ trinton.make_music(
 )
 
 # pedals
+
+trinton.make_music(
+    lambda _: trinton.select_target(_, (7,)),
+    evans.RhythmHandler(evans.talea([9, -3, -2, -3, -2], 32)),
+    evans.PitchHandler([["c,", "df,"]]),
+    trinton.attachment_command(
+        attachments=[
+            abjad.Clef("bass"),
+            abjad.Dynamic("mf"),
+        ],
+        selector=trinton.select_leaves_by_index([0]),
+    ),
+    trinton.change_notehead_command(notehead="lowest"),
+    voice=score["piano 5 voice"],
+)
 
 trinton.make_music(
     lambda _: trinton.select_target(_, (13, 14)),
