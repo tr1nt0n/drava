@@ -115,15 +115,11 @@ trinton.make_music(
 trinton.make_music(
     lambda _: trinton.select_target(_, (7, 8)),
     trinton.linear_attachment_command(
-        attachments=[
-            abjad.Dynamic("ff"),
-            abjad.StartHairpin(">"),
-            abjad.Dynamic("pp")
-        ],
+        attachments=[abjad.Dynamic("ff"), abjad.StartHairpin(">"), abjad.Dynamic("pp")],
         selector=trinton.select_leaves_by_index([0, 0, -1]),
-        direction=abjad.UP
+        direction=abjad.UP,
     ),
-    voice=score["piano 2 voice"]
+    voice=score["piano 2 voice"],
 )
 
 # manual 1

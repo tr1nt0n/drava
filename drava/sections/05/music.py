@@ -114,19 +114,11 @@ trinton.make_music(
 
 # manual 2
 
-library.morpheme_b_rhythm(
-    voice=score["piano 3 voice"],
-    measures=(11,),
-    fuse_groups=(1,),
-    stage=3,
-    rotation=8,
-    manual="single",
-    rests=False,
-    counter=1,
-)
-
 trinton.make_music(
     lambda _: trinton.select_target(_, (11,)),
+    evans.RhythmHandler(evans.tuplet([(1, 1, 1, 1, 1, 1, 1), (1, 1, 1, 1, 1)])),
+    rmakers.rewrite_dots,
+    trinton.beam_groups(selector=abjad.select.tuplets),
     trinton.pitch_with_selector_command(
         pitch_list=["df'", "ef'"], selector=trinton.select_tuplets_by_index([0])
     ),
@@ -147,7 +139,9 @@ trinton.make_music(
         attachments=itertools.cycle([abjad.StartSlur(), abjad.StopSlur()]),
         selector=trinton.select_leaves_by_index([0, 6, 7, -1]),
     ),
+    trinton.notehead_bracket_command(),
     voice=score["piano 3 voice"],
+    preprocessor=trinton.fuse_thirty_seconds_preprocessor((3, 3)),
 )
 
 # manual 3

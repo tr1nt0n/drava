@@ -311,20 +311,20 @@
                         s1 * 1/4
                         \stopStaff \startStaff
                         \tweak text #tuplet-number::calc-fraction-text
-                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 3) (ly:make-duration 5 0))
-                        \times 3/7
+                        \tweak TupletNumber.text #(tuplet-number::append-note-wrapper(tuplet-number::non-default-tuplet-fraction-text 7 6) (ly:make-duration 6 0))
+                        \times 6/7
                         {
                             \ottava -1
-                            df32
+                            df64
                             \pp
                             [
                             (
-                            ef32
-                            df32
-                            ef32
-                            df32
-                            ef32
-                            df32
+                            ef64
+                            df64
+                            ef64
+                            df64
+                            ef64
+                            df64
                             )
                             ]
                         }
